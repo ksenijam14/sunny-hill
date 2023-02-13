@@ -1,0 +1,26 @@
+<app-meni-classic></app-meni-classic>
+
+<div class="container">
+    <div class="row top-buffer justify-content-md-center">
+        <div class="col-sm-6">
+            <h3>PREGLED STATUSA REGISTRACIJA FIRMI</h3>
+            <table class="preduzeca">
+                <th>Firma</th>
+                <th>Status</th>
+                <th colspan="2">Aktivacija/deaktivacija naloga</th>
+                <tr *ngFor="let firma of svaPreduzeca">
+                    <td>{{firma.nazivP}}</td>
+                    <td>{{firma.status}}</td>
+                    <td>
+                        <button mat-button color="primary" (click)="aktiviraj(firma)">AKTIVIRAJ NALOG</button>  
+                    </td>
+                    <td>
+                        <button mat-button color="primary" (click)="deaktiviraj(firma)">DEAKTIVIRAJ NALOG</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+

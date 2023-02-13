@@ -1,0 +1,149 @@
+<app-meni-firme></app-meni-firme>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 padd">
+            <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <table class="center">
+                    <tr>
+                        <td colspan="2">
+                            <h3 class="table_heading">UNOS NOVE PLANINARSKE TURE</h3> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Naslov - ime ture</mat-label>
+                                <input matInput formControlName="naslov">
+                                <mat-error *ngIf="myError('naslov', 'required')">Naslov je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Cena</mat-label>
+                                <input matInput formControlName="cena" type="number">
+                                <mat-error *ngIf="myError('cena', 'required')">Cena je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Lokacija - planina</mat-label>
+                                <mat-select formControlName="lokacija">
+                                    <mat-option *ngFor='let p of planine' value='{{p["naziv"]}}'>{{p["naziv"]}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="myError('lokacija', 'required')">Lokacija je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Kljucne reci</mat-label>
+                                <input matInput formControlName="hint_reci">
+                                <mat-error *ngIf="myError('hint_reci', 'required')">Obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Opis ture</mat-label>
+                                <textarea matInput placeholder="Npr Veliki Rzav, jedna od najčistijih reka u Srbiji, naša je sledeća destinacija..." formControlName="opis"></textarea>
+                                <mat-error *ngIf="myError('opis', 'required')">Opis ture je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Program</mat-label>
+                                <textarea matInput placeholder="Npr 9:45h okupljanje..." formControlName="program"></textarea>
+                                <mat-error *ngIf="myError('program', 'required')">Program je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Saveti i obavezna oprema</mat-label>
+                                <textarea matInput placeholder="Npr Poneti flasicu vode..." formControlName="saveti"></textarea>
+                                <mat-error *ngIf="myError('saveti', 'required')">Saveti su obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Ukljuceno u cenu</mat-label>
+                                <textarea matInput placeholder="Npr prevoz..." formControlName="ukljuceno"></textarea>
+                                <mat-error *ngIf="myError('ukljuceno', 'required')">Obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Nije ukljuceno u cenu</mat-label>
+                                <textarea matInput placeholder="Npr redovna godisnja clanarina..." formControlName="nije_ukljuceno"></textarea>
+                                <mat-error *ngIf="myError('nije_ukljuceno', 'required')">Obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Izaberite datume</mat-label>
+                                <mat-date-range-input [rangePicker]="picker">
+                                  <input matStartDate formControlName="datum_od" placeholder="Start date">
+                                  <input matEndDate formControlName="datum_do" placeholder="End date">
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Napomene</mat-label>
+                                <textarea matInput placeholder="Npr Poneti hranu..." formControlName="napomene"></textarea>
+                                <mat-error *ngIf="myError('napomene', 'required')">Napomene su obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label class="label_kat" for="exampleInputImage">SLIKE:</label>
+                            <input type="file" (change)="onFileChange($event)" class="form-control" id="exampleInputImage" accept="image/png, image/jpeg" formControlName="media" name="media" multiple>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="padd">
+                                <button type="submit" mat-raised-button color="primary" [disabled]="!forma.valid" (click)='unos_ture()'>UNESI NOVU TURU</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertOK==true' class="padd">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertErr==true'>
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

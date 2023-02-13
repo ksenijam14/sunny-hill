@@ -1,0 +1,281 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div *ngIf="detaljiS[0]?.tip=='hotel'" class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+                <h2 class="alert-heading">Dobro došli na stranicu hotela: {{detaljiS[0].nazivP}}</h2>
+                <hr>
+                <div align="left">
+                    <mat-icon class="star_color">star_rate</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiS[0]?.detalji_hotela[0]['ocena']}}/10</span>
+                </div>
+                <div align="left">
+                    <mat-icon color="primary">location_on</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiS[0]?.adresaP}}</span>
+                </div>
+            </div>
+            <div *ngIf="detaljiS[0]?.tip=='apartman'" class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+                <h2 class="alert-heading">Dobro došli na stranicu apartmana: {{detaljiS[0].nazivP}}</h2>
+                <hr>
+                <div align="left">
+                    <mat-icon class="star_color">star_rate</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiS[0]?.detalji_hotela[0]['ocena']}}/10</span>
+                </div>
+                <div align="left">
+                    <mat-icon color="primary">location_on</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiS[0]?.adresaP}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-2 col-sm-8 padd">
+            <table class="tabela">
+                <tr>
+                    <td align="justify">
+                        <span>Reljef same planine čine uski grebeni, koji se sa vrha spuštaju u dolinu u svim pravcima i prave zvezdastu formu. Ono što će planinarenje učiniti posebnim je moguć susret sa divljim konjima koji žive na ovoj planini.
+                        Konji su naviknuti na prisustvo ljudi pa im je moguće i prići, ali uz veliku dozu opreza. Krdo broji preko 30 jedinki i stalno se uvećava, a o njima brine društvo ljubitelja konja “Stolovi” iz Kraljeva. U maju su  planinske staze ukrašene narcisima, koji doprinose jedinstvenoj lepoti.
+                        </span>
+                    </td>  
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row paddH">
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img [src]="imageObject[0]['image']" width="850px">
+                                  </div>
+                                  <div class="carousel-item" *ngFor="let img of imageObject let i = index">
+                                    <img  [src]="img['image']" width="850px">
+                                  </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon ikonica" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon ikonica" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <h3><b>PONUDA HOTELA:</b></h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 padd">
+            <table align="center">
+                <tr>
+                    <th>Vrste soba:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiS[0]?.detalji_hotela[0]['vrste_soba']">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr> 
+                <tr>
+                    <th>Tehnicke karakteristike soba:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiS[0]?.detalji_hotela[0]['opremljenost']">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr>
+                <tr>
+                    <th>Nacin ishrane:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiS[0]?.detalji_hotela[0]['hrana']">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr>
+                <tr>
+                    <th>Relaksirajuci sadrzaji:</th>
+                    <td>
+                        <hr>
+                            <div *ngIf="detaljiS[0]?.detalji_hotela[0]['relax']==true; else noSpa">
+                                <mat-icon>spa</mat-icon><span class="aligned-with-icon">Postoji</span>
+                            </div>
+                        <hr>
+                    </td>  
+                </tr>  
+                <hr>         
+            </table>
+            <ng-template #noSpa>
+                <td>
+                    <mat-icon>spa</mat-icon><span class="aligned-with-icon">Nema</span>   
+                </td> 
+            </ng-template>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <h3><b>CENE:</b></h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6">
+            <table class="sobe" align="center">
+                <tr *ngFor="let soba of detaljiS[0]?.detalji_hotela[0]['sobe']; let i = index">
+                    <th>Tip sobe - {{i + 1}}</th>
+                    <td *ngIf="soba['tipS']=='jednokrevetna'">Jednokrevetna</td>
+                    <td *ngIf="soba['tipS']=='dvokrevetna'">Dvokrevetna</td>
+                    <td *ngIf="soba['tipS']=='sa_pogledom'">Sa pogledom na prirodu</td>
+                    <td>{{soba['cena_nocenja']}} din /nocenje</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <hr>
+            <button mat-raised-button color="primary" (click)="showForma()" *ngIf="clicked==false">REZERVIŠITE VEĆ SADA</button>   
+        </div>
+        <div class="col-sm-12">
+            <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <table class="center" *ngIf="this.showRezForma==true">
+                    <tr>
+                        <td>
+                            <h3>UNESITE PODATKE</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Tip sobe</mat-label>
+                                <mat-select formControlName="tip_sobe" (selectionChange)='getFreeDates($event)'>
+                                    <mat-option *ngFor="let sob of detaljiS[0]?.detalji_hotela[0]['vrste_soba']" value='{{sob}}'>{{sob}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="myError('tip_sobe', 'required')">Tip sobe je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline" class="example-full-width">
+                                <mat-label>Izaberite datume</mat-label>
+                                <mat-date-range-input [rangePicker]="picker" [min]="minDate" [dateFilter]="myFilter">
+                                  <input matStartDate formControlName="datum_OD" placeholder="Start date" >
+                                  <input matEndDate formControlName="datum_DO" placeholder="End date"  >
+                                </mat-date-range-input>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Broj osoba</mat-label>
+                                <input matInput formControlName="br_osoba" type="number">
+                                <mat-error *ngIf="myError('br_osoba', 'required')">Broj osoba je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Kontakt telefon</mat-label>
+                                <input matInput formControlName="br_tel">
+                                <mat-error *ngIf="myError('br_tel', 'required')">Broj telefona je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Dodatne informacije</mat-label>
+                                <textarea matInput placeholder="..." formControlName="dodatne_info"></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr *ngIf="forma.valid">
+                        <td>
+                            <div *ngFor="let s of this.detaljiS[0].detalji_hotela[0]['sobe']">
+                                <div *ngIf="s.tipS==this.forma.value.tip_sobe">
+                                    <div *ngIf="this.detaljiS[0].detalji_hotela[0]['popust']==0">
+                                        <h3>Ukupno za plaćanje: <b>{{s.cena_nocenja * (((this.forma.value.datum_DO - this.forma.value.datum_OD)/(1000*3600*24)) + 1)}} din</b></h3>
+                                    </div>
+                                    <div *ngIf="this.detaljiS[0].detalji_hotela[0]['popust']>0">
+                                        <h3>Ukupno za plaćanje: <b>{{s.cena_nocenja * ((100 - this.detaljiS[0].detalji_hotela[0]['popust'])/100) * (((this.forma.value.datum_DO - this.forma.value.datum_OD)/(1000*3600*24)) + 1)}} din</b></h3>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="padd">
+                                <button type="submit" mat-raised-button color="primary" [disabled]="!forma.valid" (click)="rezervacija()">REZERVACIJA</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertOK==true' class="padd">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertErr==true'>
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <h3><b>KOMENTARI:</b></h3>
+            <hr>
+            <div class="col-sm-12" *ngFor="let kom of detaljiS[0]?.detalji_hotela[0]?.komentari"> 
+                <div align="left">
+                    <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                        <!-- <h4 class="alert-heading">{{kom?.klijent}}</h4> -->
+                        <div align="left">
+                            <mat-icon class="notes_color">speaker_notes</mat-icon>
+                            <span class="aligned-with-icon">{{kom?.text}} by {{kom?.klijent}}</span>
+                        </div>
+                        <div align="left">
+                            <mat-icon class="star_color">star_rate</mat-icon>
+                            <span class="aligned-with-icon">{{kom?.ocena}}/10</span>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <!-- <h3><b>GOOGLE MAPS:</b></h3> -->
+            <hr>
+        </div>
+    </div>
+</div>

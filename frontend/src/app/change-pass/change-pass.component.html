@@ -1,0 +1,72 @@
+<div class="bg">
+    <nav class="navbar navbar-expand-lg navbar-light toolbar sticky-top">
+        <div class="container-fluid">
+            <div class="padd-logo">
+                <a class="navbar-brand " href="#">
+                    <br>
+                    <img src="/assets/suncani_breg_logo.png" alt="Ski skole" width="50px" height="50px">
+                </a>
+            </div>
+        </div>
+    </nav>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <table class="center">
+                    <tr>
+                        <td colspan="2">
+                            <h3 class="table_heading">PROMENITE SVOJU LOZINKU</h3> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Stara lozinka</mat-label>
+                                <input type='password' matInput formControlName="stara_pass">
+                                <mat-error *ngIf="myError('stara_pass', 'required')">Korisnicko ime je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Nova lozinka</mat-label>
+                                <input type='password' matInput formControlName="lozinka">
+                                <mat-error *ngIf="myError('lozinka', 'required')">Lozinka je obavezno polje!</mat-error>
+                                <mat-error *ngIf="myError('lozinka', 'pattern')">Lozinka nije u dobrom formatu!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ponovite novu lozinku</mat-label>
+                                <input type='password' matInput formControlName="re_lozinka">
+                                <mat-error *ngIf="myError('re_lozinka', 'required')">Lozinka je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button type="submit" mat-raised-button color="primary" [disabled]="!forma.valid" (click)="changePass()">PROMENI LOZINKU</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertErr==true'>
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,436 @@
+<app-meni-klijent></app-meni-klijent>
+<div class="container">
+    <div class="row">
+        <div *ngIf='helloAlert==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Zdravo, {{ulogovan.ime_prezime}}!</h4>
+            <p>U sekciji menija ''Potvrđene rezervacije'' možete proveriti podatke novoposlatih 
+                i odbijenih rezervacija.
+            </p>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Rezervacije smeštaja</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let smestaj of mojSmestaj">
+            <div class="col-sm-7 left">
+                <div class="card" *ngIf="smestaj?.rezervacije?.status=='odobrena'">
+                    <h4 class="card-header">ID rezervacije: {{smestaj?.rezervacije?.idRez}}</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">Naziv smeštaja: {{smestaj.nazivP}}</h5>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="preduzeca">
+                                        <tr>
+                                            <th>Adresa:</th>
+                                            <td id="adr">{{smestaj?.adresaP}} {{smestaj?.drzava}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Planina</th>
+                                            <td id="adr">{{smestaj?.planina}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tip smeštaja</th>
+                                            <td>{{smestaj?.kategorija}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Datumi boravka:</th>
+                                            <td>{{smestaj?.rezervacije?.datum_OD | date: 'dd. MM. yyyy'}} - {{smestaj?.rezervacije?.datum_DO | date: 'dd. MM. yyyy.'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Soba i broj osoba:</th>
+                                            <td>{{smestaj?.rezervacije?.tip_sobe}}, {{smestaj?.rezervacije?.br_osoba}} osoba/e</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Žiro račun za uplatu:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.dodatne_info==''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.dodatne_info!=''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>{{smestaj?.rezervacije?.dodatne_info}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-5 placanje">
+                                    <h3><b>Ukupno za uplatu: </b> din</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="showComment==false"> 
+                            <div align="left">
+                                <div class="alert alert-warning alert-dismissible col-sm-7 text-center" role="alert">
+                                    <h4 class="alert-heading">Vaš komentar i ocena za uslugu:</h4>
+                                    <hr>
+                                    <div align="left">
+                                        <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                        <span class="aligned-with-icon">{{this.forma.value.text}}</span>
+                                    </div>
+                                    <div align="left">
+                                        <mat-icon class="star_color">star_rate</mat-icon>
+                                        <span class="aligned-with-icon">{{this.forma.value.ocena}}/10</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row"> -->
+                            <div class="col-sm-12" *ngIf="showComment==true" >
+                                <div align="left">
+                                    <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center left" fxLayoutGap="10px">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Komentar</mat-label>
+                                                        <textarea matInput placeholder="..." formControlName="text"></textarea>
+                                                        <mat-error *ngIf="myError('text', 'required')">Niste uneli tekst komentara!</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <a (click)="rate(indexes[0])" class="button-star ">
+                                                                <mat-icon [ngClass]="{'selected': indexes[0] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[1])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[1] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[2])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[2] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[3])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[3] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[4])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[4] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[5])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[5] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[6])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[6] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[7])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[7] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[8])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[8] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[9])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[9] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button type="submit" class="btn btn comment" (click)='komentarisi(smestaj?.idF)'>POŠALJI</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="mojSmestaj.length==0">
+            <h2>TRENUTNO NEMA NOVIH REZERVACIJA SMESTAJA</h2>
+        </div> 
+    </div>
+<!-------------------------------------------------///REZERVACIJE SKI SKOLA///-------------------------------->
+<div class="row">
+    <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+        <h4 class="alert-heading">Rezervacije časova u ski školama</h4>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div *ngFor="let ski of mojSki">
+        <div class="col-sm-7 left">
+            <div class="card" *ngIf="ski?.rezervacija?.status=='odobrena'">
+                <h4 class="card-header">ID rezervacije: {{ski?.rezervacija?._id}}</h4>
+                <div class="card-body">
+                    <h5 class="card-title">Naziv ski škole: {{ski.nazivP}}</h5>
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <table class="preduzeca">
+                                    <tr>
+                                        <th>Adresa:</th>
+                                        <td id="adr">{{ski?.adresaP}} {{ski?.drzava}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Planina:</th>
+                                        <td id="adr">{{ski?.planina}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Datum i vreme časa:</th>
+                                        <td>{{ski?.rezervacija?.datum | date: 'dd. MM. yyyy.'}} godine u {{ski?.rezervacija?.vreme}}h</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ime instruktora:</th>
+                                        <td>{{ski?.instruktor}}</td>
+                                    </tr>
+                                    <tr *ngIf="ski?.rezervacija?.renta_opreme==true">
+                                        <th>Potrebna oprema:</th>
+                                        <td>Da</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Žiro račun za uplatu:</th>
+                                        <td>/</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-5 placanje" *ngIf="ski?.rezervacija?.renta_opreme==true">
+                                <h3><b>Ukupno za uplatu: </b> {{ski?.cena_casa + ski?.cena_opreme}} din</h3>
+                            </div>
+                            <div class="col-sm-5 placanje" *ngIf="ski?.rezervacija?.renta_opreme==false">
+                                <h3><b>Ukupno za uplatu: </b> {{ski?.cena_casa}} din</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12" *ngIf="showComment==false"> 
+                        <div align="left">
+                            <div class="alert alert-warning alert-dismissible col-sm-7 text-center" role="alert">
+                                <h4 class="alert-heading">Vaš komentar i ocena za uslugu:</h4>
+                                <hr>
+                                <div align="left">
+                                    <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                    <span class="aligned-with-icon">{{this.forma.value.text}}</span>
+                                </div>
+                                <div align="left">
+                                    <mat-icon class="star_color">star_rate</mat-icon>
+                                    <span class="aligned-with-icon">{{this.forma.value.ocena}}/10</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row"> -->
+                        <div class="col-sm-12" *ngIf="showComment==true" >
+                            <div align="left">
+                                <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center left" fxLayoutGap="10px">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Komentar</mat-label>
+                                                    <textarea matInput placeholder="..." formControlName="text"></textarea>
+                                                    <mat-error *ngIf="myError('text', 'required')">Niste uneli tekst komentara!</mat-error>
+                                                </mat-form-field>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <a (click)="rate(indexes[0])" class="button-star ">
+                                                            <mat-icon [ngClass]="{'selected': indexes[0] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[1])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[1] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[2])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[2] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[3])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[3] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[4])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[4] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[5])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[5] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[6])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[6] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[7])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[7] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[8])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[8] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                        <a (click)="rate(indexes[9])" class="button-star">
+                                                            <mat-icon [ngClass]="{'selected': indexes[9] <= rating}">stars</mat-icon>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <button type="submit" class="btn btn comment" (click)='komentarisi(ski?.idF)'>POŠALJI</button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div *ngIf="mojeTure.length==0">
+        <h2>TRENUTNO NEMA NOVIH REZERVACIJA ČASOVA U SKI ŠKOLAMA</h2>
+    </div> 
+</div>
+<!-------------------------------------------------///REZERVACIJE PLANINARSKIH TURA///-------------------------------->
+    <div class="row">
+        <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Rezervacije planinarskih tura</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let tura of mojeTure">
+            <div class="col-sm-7 left">
+                <div class="card" *ngIf="tura?.rezervacija?.status=='odobrena'">
+                    <h4 class="card-header">ID rezervacije: {{tura?.rezervacija?._id}}</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">Naziv planinarskog društva: {{tura.nazivP}}</h5>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="preduzeca">
+                                        <tr>
+                                            <th>Adresa:</th>
+                                            <td id="adr">{{tura?.adresaP}} {{tura?.drzava}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Datum polaska:</th>
+                                            <td>{{tura?.datum_OD | date: 'dd. MM. yyyy.'}} godine</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Broj osoba:</th>
+                                            <td>{{tura?.rezervacija?.br_mesta}} osoba/e</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Žiro račun za uplatu:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.dodatni_info==''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.dodatni_info!=''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>{{tura?.rezervacija?.dodatni_info}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-5 placanje">
+                                    <h3><b>Ukupno za uplatu: </b> {{tura?.cena * tura?.rezervacija?.br_mesta}} din</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12" *ngIf="showComment==false"> 
+                            <div align="left">
+                                <div class="alert alert-warning alert-dismissible col-sm-7 text-center" role="alert">
+                                    <h4 class="alert-heading">Vaš komentar i ocena za uslugu:</h4>
+                                    <hr>
+                                    <div align="left">
+                                        <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                        <span class="aligned-with-icon">{{this.forma.value.text}}</span>
+                                    </div>
+                                    <div align="left">
+                                        <mat-icon class="star_color">star_rate</mat-icon>
+                                        <span class="aligned-with-icon">{{this.forma.value.ocena}}/10</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row"> -->
+                            <div class="col-sm-12" *ngIf="showComment==true" >
+                                <div align="left">
+                                    <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center left" fxLayoutGap="10px">
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Komentar</mat-label>
+                                                        <textarea matInput placeholder="..." formControlName="text"></textarea>
+                                                        <mat-error *ngIf="myError('text', 'required')">Niste uneli tekst komentara!</mat-error>
+                                                    </mat-form-field>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <a (click)="rate(indexes[0])" class="button-star ">
+                                                                <mat-icon [ngClass]="{'selected': indexes[0] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[1])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[1] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[2])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[2] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[3])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[3] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[4])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[4] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[5])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[5] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[6])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[6] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[7])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[7] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[8])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[8] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                            <a (click)="rate(indexes[9])" class="button-star">
+                                                                <mat-icon [ngClass]="{'selected': indexes[9] <= rating}">stars</mat-icon>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button type="submit" class="btn btn comment" (click)='komentarisi(tura?.idPlan)'>POŠALJI</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
+                            </div>
+                        <!-- <button type="button" class="btn btn comment">KOMENTAR</button> -->
+                        <button type="button" class="btn btn prihvati" (click)="show_details(tura?.idTure)">DETALJI TURE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="mojeTure.length==0">
+            <h2>TRENUTNO NEMA NOVIH REZERVACIJA PLANINARSKIH TURA</h2>
+        </div> 
+    </div>
+</div>

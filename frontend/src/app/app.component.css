@@ -1,0 +1,8 @@
+.footerP{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    background-size:contain;
+    background-color: rgb(236, 231, 231);
+    max-height:fit-content;
+}

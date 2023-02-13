@@ -1,0 +1,101 @@
+
+<app-meni-firme></app-meni-firme>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6" role="alert">
+            <h4 class="alert-heading">Zdravo, {{ulogovan.ime_prezime}}!</h4>
+            <p>Na svom nalogu možete pregledati i izmeniti podatke o firmi,
+                potvrditi ili odbiti nove rezervacije
+            </p>
+            <hr>
+            <p class="mb-0">Sve što je potrebno da uradite jeste da izaberete odgovarajuću stavku menija.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="opsti" class="offset-sm-3 col-sm-6">
+            <h3>OPŠTI PODACI O FIRMI</h3>
+            <table class="preduzeca center">
+                <tr>
+                    <th>Grb</th>
+                    <td>
+                        <div id="grb">
+                            <img src="http://localhost:4000/home/{{ulogovan.slika}}" width="70" height="70">
+                        </div>  
+                    </td>
+                </tr>
+                <tr>
+                    <th>Naziv</th>
+                    <td>{{ulogovan.nazivP}}</td>
+                </tr>
+                <tr>
+                    <th>Adresa</th>
+                    <td>{{ulogovan.adresaP}}</td>
+                </tr>
+                <tr>
+                    <th>PIB</th>
+                    <td>{{ulogovan.PIB}}</td>
+                </tr>  
+                <tr>
+                    <th>Maticni broj</th>
+                    <td>{{ulogovan.maticni}}</td>
+                </tr>
+                <tr>
+                    <th>Odgovorno lice</th>
+                    <td>{{ulogovan.ime_prezime}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{ulogovan.email}}</td>
+                </tr>
+                <tr>
+                    <th>Telefon</th>
+                    <td>{{ulogovan.telefon}}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ulogovan.status}}</td>
+                </tr>
+                <tr>
+                    <th>Kategorija</th>
+                    <td>ski škola</td>
+                </tr>
+            </table>    
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6">
+            <h3>INSTRUKTORI</h3>
+            <table class="preduzeca">
+                
+                <tr *ngFor="let instr of detaljiSk?.instruktori; let i = index">
+                    <th>Instruktor - {{i + 1}}</th>
+                    <td>{{instr['ime_prezime']}}</td>
+                    <td><b>Drži časove za: </b> {{instr['drzi_za']}}</td>   
+                </tr>
+            </table>
+            <br>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6" >
+            <h3>INFORMACIJE O ČASOVIMA I OPREMI</h3>
+            <table class="preduzeca" *ngIf="detaljiSk?.oprema==true; else noOprema">
+                <tr>
+                    <th>Cena časa (60 min)</th>
+                    <td>{{detaljiSk?.cena_casa}} din</td>  
+                </tr>
+                <tr>
+                    <th>Cena iznajmljivanja opreme (skije, štapovi i pancerice)</th>
+                    <td>{{detaljiSk?.cena_opreme}} din</td>  
+                </tr>
+            </table>
+            <br>
+        </div>
+        <ng-template #noOprema>
+            <h4><b>Trenutno nije moguce iznajmljivanje opreme.</b></h4>
+        </ng-template>
+    </div>
+</div>
+
+

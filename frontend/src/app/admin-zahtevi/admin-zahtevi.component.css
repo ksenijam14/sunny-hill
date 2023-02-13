@@ -1,0 +1,23 @@
+.preduzeca {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.preduzeca td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+.preduzeca tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.container{
+    padding-top: 80px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 70px;
+}

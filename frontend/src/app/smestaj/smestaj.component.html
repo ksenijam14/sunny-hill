@@ -1,0 +1,177 @@
+<app-meni-firme></app-meni-firme>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6" role="alert">
+            <h4 class="alert-heading">Zdravo, {{ulogovan.ime_prezime}}!</h4>
+            <p>Na svom nalogu možete pregledati i izmeniti podatke o firmi,
+                potvrditi ili odbiti nove rezervacije.
+            </p>
+            <hr>
+            <p class="mb-0">Sve što je potrebno da uradite jeste da izaberete odgovarajuću stavku menija.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="opsti" class="offset-sm-3 col-sm-6">
+            <h3>OPŠTI PODACI O FIRMI</h3>
+            <table id="preduzeca" class="center">
+                <tr>
+                    <th>Grb</th>
+                    <td>
+                        <div id="grb">
+                            <img src="http://localhost:4000/home/{{ulogovan.slika}}" width="70" height="70">
+                        </div>  
+                    </td>
+                </tr>
+                <tr>
+                    <th>Naziv</th>
+                    <td>{{ulogovan.nazivP}}</td>
+                </tr>
+                <tr>
+                    <th>Trenutna ocena korisnika</th>
+                    <td>
+                        <mat-icon class="star_color">star_rate</mat-icon>
+                        <span class="aligned-with-icon">{{detaljiSm?.ocena}}/10</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Trenutni popust na cene usluga</th>
+                    <td *ngIf="!editMode">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <mat-icon>discount</mat-icon>
+                                <span class="aligned-with-icon">{{detaljiSm?.popust}}%</span>
+                            </div>
+                            <div class="col-sm-6">
+                                <button mat-button color="primary" (click)="editMode = true">Izmeni</button>
+                            </div>
+                            
+                        </div>
+                        
+                    </td>
+                    <td *ngIf="editMode">
+                        <mat-icon>discount</mat-icon>
+                        <input type='text' [(ngModel)]="popustNovi">
+                        <button mat-button color="primary" (click)="editPopust(); editMode = false">Sacuvaj</button> 
+                    </td>
+                </tr>
+                <tr>
+                    <th>Adresa</th>
+                    <td>{{ulogovan.adresaP}}</td>
+                </tr>
+                <tr>
+                    <th>Planina</th>
+                    <td class="planine">{{ulogovan.planina}}</td>
+                </tr>
+                <tr>
+                    <th>PIB</th>
+                    <td>{{ulogovan.PIB}}</td>
+                </tr>  
+                <tr>
+                    <th>Maticni broj</th>
+                    <td>{{ulogovan.maticni}}</td>
+                </tr>
+                <tr>
+                    <th>Odgovorno lice</th>
+                    <td>{{ulogovan.ime_prezime}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{ulogovan.email}}</td>
+                </tr>
+                <tr>
+                    <th>Telefon</th>
+                    <td>{{ulogovan.telefon}}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ulogovan.status}}</td>
+                </tr>
+                <tr>
+                    <th>Kategorija</th>
+                    <td>{{ulogovan.tip}}</td>
+                </tr>
+            </table>    
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <h3><b>PONUDA HOTELA:</b></h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 padd">
+            <table align="center" style="border:0">
+                <tr>
+                    <th>Vrste soba:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiSm?.vrste_soba">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr> 
+                <tr>
+                    <th>Tehnicke karakteristike soba:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiSm?.opremljenost">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr>
+                <tr>
+                    <th>Nacin ishrane:</th>
+                    <td>
+                        <hr>
+                        <div *ngFor="let sob of detaljiSm?.hrana">
+                            <p>{{sob}}</p>
+                        </div> 
+                        <hr>
+                    </td>
+                </tr>
+                <hr>
+                <tr>
+                    <th>Relaksirajuci sadrzaji:</th>
+                    <td>
+                        <hr>
+                            <div *ngIf="detaljiSm?.relax==true; else noSpa">
+                                <mat-icon>spa</mat-icon><span class="aligned-with-icon">Postoji</span>
+                            </div>
+                        <hr>
+                    </td>  
+                </tr>  
+                <hr>         
+            </table>
+            <ng-template #noSpa>
+                <td>
+                    <mat-icon>spa</mat-icon><span class="aligned-with-icon">Nema</span>   
+                </td> 
+            </ng-template>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <h3><b>CENE:</b></h3>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6">
+            <table id="sobe" align="center">
+                <tr *ngFor="let soba of detaljiSm['sobe']; let i = index">
+                    <th>Tip sobe - {{i + 1}}</th>
+                    <td *ngIf="soba['tipS']=='jednokrevetna'">Jednokrevetna</td>
+                    <td *ngIf="soba['tipS']=='dvokrevetna'">Dvokrevetna</td>
+                    <td *ngIf="soba['tipS']=='sa_pogledom'">Sa pogledom na prirodu</td>
+                    <td>{{soba['cena_nocenja']}} din /nocenje</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

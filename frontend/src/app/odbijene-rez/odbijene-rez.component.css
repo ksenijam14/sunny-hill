@@ -1,0 +1,87 @@
+.container{
+    margin-top: 70px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.left{
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.card-header{
+    font-weight: 550;
+    font-size: large;
+}
+.card-title{
+    font-weight: 550;
+    font-size: medium;
+
+}
+
+/* .preduzeca {
+    font-family: arial, sans-serif; 
+    border-collapse: collapse;
+    width: 100%;
+} */
+
+.preduzeca td, th {
+    /* border: 1px solid #dddddd; */
+    text-align: left;
+    padding-right: 8px; 
+    padding-bottom: 8px;
+}
+  
+/* .preduzeca tr:nth-child(even) {
+    background-color: #dddddd;
+} */
+
+.prihvati{
+    background-color:#1be796;
+    color: white;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.prihvati:focus{
+    background-color:#3de727;
+   
+}
+
+.odbij{
+    background-color:#f5866f;
+    color: white;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+.odbij:focus{
+    background-color:#f44c2b;
+}
+
+.padd{
+    padding-top: 10px;
+}
+
+.styleAlert{
+    font-size: large;
+    text-align: center;
+    /* display: inline-block; */
+}
+
+.placanje{
+    padding: 30px 0;
+    /* border: 3px solid green; */
+    text-align: center;
+    font-weight: 600;
+}
+

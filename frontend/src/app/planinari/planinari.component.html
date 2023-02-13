@@ -1,0 +1,79 @@
+<app-meni-firme></app-meni-firme>
+
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6" role="alert">
+            <h4 class="alert-heading">Zdravo, {{ulogovan.ime_prezime}}!</h4>
+            <p>Na svom nalogu možete pregledati i izmeniti podatke o firmi, dodati novu planinarsku turu, potvrditi ili odbiti nove rezervacije.
+            </p>
+            <hr>
+            <p class="mb-0">Sve što je potrebno da uradite jeste da izaberete odgovarajuću stavku menija.</p>
+        </div>
+    </div>
+    <div class="row">
+        <div id="opsti" class="offset-sm-3 col-sm-6">
+            <h3>OPŠTI PODACI O FIRMI</h3>
+            <table class="preduzeca center">
+                <tr>
+                    <th>Grb</th>
+                    <td>
+                        <div id="grb">
+                            <img src="http://localhost:4000/home/{{ulogovan.slika}}" width="70" height="70">
+                        </div>  
+                    </td>
+                </tr>
+                <tr>
+                    <th>Naziv</th>
+                    <td>{{ulogovan.nazivP}}</td>
+                </tr>
+                <tr>
+                    <th>Adresa</th>
+                    <td>{{ulogovan.adresaP}}</td>
+                </tr>
+                <tr>
+                    <th>PIB</th>
+                    <td>{{ulogovan.PIB}}</td>
+                </tr>  
+                <tr>
+                    <th>Maticni broj</th>
+                    <td>{{ulogovan.maticni}}</td>
+                </tr>
+                <tr>
+                    <th>Odgovorno lice</th>
+                    <td>{{ulogovan.ime_prezime}}</td>
+                </tr>
+                <tr>
+                    <th>E-mail</th>
+                    <td>{{ulogovan.email}}</td>
+                </tr>
+                <tr>
+                    <th>Telefon</th>
+                    <td>{{ulogovan.telefon}}</td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>{{ulogovan.status}}</td>
+                </tr>
+                <tr>
+                    <th>Kategorija</th>
+                    <td>{{ulogovan.tip}}</td>
+                </tr>
+            </table>    
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div id="ziro" class="offset-sm-3 col-sm-6">
+            <h3>PLANINE U PONUDI</h3>
+            <table class="preduzeca planine">
+                
+                <tr *ngFor="let plan of detalji?.planine; let i = index">
+                    <th>Planina - {{i + 1}}</th>
+                    <td>{{plan['naziv']}}</td>   
+                </tr>
+            </table>
+            <br>
+        </div>
+    </div>
+</div>
+

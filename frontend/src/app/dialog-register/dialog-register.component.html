@@ -1,0 +1,83 @@
+<form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+    <table class="center">
+        <tr>
+            <td colspan="2">
+                <h3 class="table_heading">REGISTRACIJA</h3> 
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ime i prezime</mat-label>
+                    <input matInput formControlName="ime_prezime">
+                    <mat-error *ngIf="myError('ime_prezime', 'required')">Ime i prezime je obavezno polje!</mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Korisničko ime</mat-label>
+                    <input matInput formControlName="kor_ime">
+                    <mat-error *ngIf="myError('kor_ime', 'required')">Korisničko ime je obavezno polje!</mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Lozinka</mat-label>
+                    <input type='password' matInput formControlName="lozinka">
+                    <mat-error *ngIf="myError('lozinka', 'required')">Lozinka je obavezno polje!</mat-error>
+                    <mat-error *ngIf="myError('lozinka', 'pattern')">Lozinka nije u dobrom formatu!</mat-error>
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Ponovljena lozinku</mat-label>
+                    <input type='password' matInput formControlName="re_lozinka">
+                    <mat-error *ngIf="myError('re_lozinka', 'required')">Morate uneti ponovo lozinku!</mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>Telefon</mat-label>
+                    <input matInput formControlName="telefon">
+                </mat-form-field>
+            </td>
+            <td>
+                <mat-form-field appearance="outline">
+                    <mat-label>E-mail</mat-label>
+                    <input matInput formControlName="email" placeholder="ex. name@gmail.com">
+                    <mat-error *ngIf="myError('email', 'required')">E-mail je obavezno polje!</mat-error>
+                    <mat-error *ngIf="myError('email', 'email')">E-mail nije u dobrom formatu!</mat-error>
+                </mat-form-field>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="padd">
+                    <button type="submit" mat-raised-button color="primary" [disabled]="!forma.valid" (click)="register()">REGISTRUJ SE</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div *ngIf='showAlertOK==true' class="padd">
+                    <div class="alert alert-info" role="alert">
+                        {{message}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div *ngIf='showAlertErr==true'>
+                    <div class="alert alert-danger" role="alert">
+                        {{message}} 
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

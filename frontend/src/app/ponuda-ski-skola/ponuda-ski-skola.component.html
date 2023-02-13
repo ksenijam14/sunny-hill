@@ -1,0 +1,68 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h2 class="alert-heading">SKI ŠKOLE U PONUDI</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div infinite-scroll (scrolled)="onScrollDown($event)"> -->
+            <div class="content col-sm-12"> 
+                <div fxLayout="row wrap" fxLayoutGap="16px grid" class = "justify-content-md-center">
+                    <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let v of skole">
+                        <mat-card class="example-card mat-elevation-z0">
+                            <div *ngFor="let d of v.detalji_skole">
+                                <mat-card-header>
+                                    <mat-card-title>{{v.nazivP}}</mat-card-title>
+                                </mat-card-header>
+                                <img mat-card-image src="http://localhost:4000/home/{{v.slika}}"  alt="Planina" height="200px"> 
+                                <!-- src="{{srcImg}}" -->
+                                <!-- /assets/pala-olimpico.jpg -->
+                                <mat-card-content align="left"> 
+                                    <div>
+                                        <mat-icon>landscape</mat-icon><span class="aligned-with-icon" id="ime_plan">{{v.planina}}</span>
+                                    </div>
+                                    <div *ngIf="d.ocena>0; else nemaOcena">
+                                        <mat-icon>star</mat-icon><span class="aligned-with-icon">{{d.ocena}}/10</span>
+                                    </div>
+                                    <div>
+                                        <mat-icon>money</mat-icon><span class="aligned-with-icon">{{d.cena_casa}} din (60 min)</span>
+                                    </div>
+                                    <div *ngIf="d.oprema==true; else neMoze">
+                                        <mat-icon>downhill_skiing</mat-icon><span class="aligned-with-icon">da (cena kompleta {{d?.cena_opreme}} din)</span>
+                                    </div>
+                                    <div class="row">
+                                            <div class="col-sm-4">
+                                                <mat-icon>school</mat-icon><span class="aligned-with-icon">Časovi za: </span>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="padd_class">
+                                                    <span *ngFor="let c of d.casovi_za; let isLast=last">
+                                                        <b>{{c}}{{isLast ? '' : ', '}}</b>
+                                                    </span>
+                                                </div>
+                                                
+                                            </div>
+                                    </div>
+                                    <!-- <div>
+                                        <mat-icon>school</mat-icon><span class="aligned-with-icon">Časovi za:</span>
+                                    </div> -->
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button class="details" mat-raised-button (click)="rezervacija(v._id)">REZERVIŠI</button>
+                                </mat-card-actions>
+                            </div> 
+                            </mat-card>
+                            <ng-template #nemaOcena>
+                                <mat-icon>star</mat-icon><span class="aligned-with-icon">Ski škola jos nije ocenjena</span>
+                            </ng-template>
+                            <ng-template #neMoze>
+                                <mat-icon>downhill_skiing</mat-icon><span class="aligned-with-icon">ne</span>
+                            </ng-template>
+                    </div>
+                </div>
+            </div> 
+        <!-- </div> -->
+    </div>
+</div>

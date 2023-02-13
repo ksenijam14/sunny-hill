@@ -1,0 +1,187 @@
+<div class="bg">
+    <nav class="navbar navbar-expand-lg navbar-light toolbar">
+        <div class="container-fluid">
+            <div class="padd-logo">
+                <a class="navbar-brand " href="#">
+                    <br>
+                    <img mat-card-image src="/assets/suncani_breg.png" alt="Ski skole" width="300px" height="300px">
+                </a>
+            </div>
+          <!-- kada se smanji ekran pojavljuju se 3 horizontalne linije -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="right">
+                <div class="collapse navbar-collapse center" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button mat-button color="primary" (click)="loginDialog()">Prijava</button>
+                        </li>
+                        <li class="nav-item">
+                            <button mat-button color="primary" (click)="registerDialog()">Registracija</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="butt_vasa" mat-flat-button color="primary" (click)="registerPravnoLice()">Vaša ponuda</button>
+                        </li>
+                        <li class="nav-item" *ngIf="this.ulogovan!=null">
+                            <button class="butt" mat-icon-button [matMenuTriggerFor]="user_menu">
+                                <mat-icon>account_box</mat-icon>
+                            </button>
+                            <mat-menu #user_menu="matMenu"  yPosition="above">
+                                <button mat-menu-item (click)="mojProfil()">
+                                  <mat-icon>face</mat-icon>
+                                  <span>Moj profil</span>
+                                </button>
+                                <button mat-menu-item (click)="changePass()">
+                                    <mat-icon>manage_accounts</mat-icon>
+                                    <span>Promeni lozinku</span>
+                                </button>
+                                <button mat-menu-item (click)="logout()">
+                                  <mat-icon>logout</mat-icon>
+                                  <span>Odjavi se</span>
+                                </button>
+                            </mat-menu>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="offset-sm-1 col-sm-6 col-xs-4">
+        <mat-card class="card-search">
+            <mat-card-header class="title-card">
+              <mat-card-title>PRONAĐITE SVOJ ODMOR NA PLANINI</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="forma">
+                    <table class="center_tab">
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Država</mat-label>
+                                    <mat-select formControlName="drzava" (selectionChange)='getPlanine($event)' multiple>
+                                        <mat-option value="Srbija">Srbija</mat-option>
+                                        <mat-option value="Bosna i Hercegovina">Bosna i Hercegovina</mat-option>
+                                        <mat-option value="Slovenija">Slovenija</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Planina</mat-label>
+                                    <mat-select formControlName="planina">
+                                        <div *ngFor='let m of mojePlanine'>
+                                            <mat-option *ngFor='let p of m?.planine' value="{{p['naziv']}}">{{p['naziv']}}</mat-option>
+                                        </div>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Tip odmora</mat-label>
+                                    <mat-select formControlName="tip_odmora">
+                                        <!-- <mat-option *ngFor='let d of objekti' value='{{d.nazivM}}'>{{d.nazivM}}</mat-option> -->
+                                        <mat-option value="ski_skola">Skijanje i bord</mat-option>
+                                        <mat-option value="planinari">Planinarenje</mat-option>
+                                        <mat-option value="relax">Relaks</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="myError('tip_odmora', 'required')">Niste popunili tip odmora!</mat-error>
+                                </mat-form-field>
+                            </td>
+                            <!-- <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Broj osoba</mat-label>
+                                    <input matInput formControlName="br_osoba" type="number">
+                                </mat-form-field>
+                            </td> -->
+                            <!-- *ngIf="forma.value.tip_odmora != 'planinari'" -->
+                            <td >
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Tip smestaja</mat-label>
+                                    <mat-select formControlName="tip_smestaja" [disabled]="forma.value.tip_odmora == 'planinari'">
+                                        <mat-option value="hotel">Hotel</mat-option>
+                                        <mat-option value="apartman">Privatni smeštaj</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Izaberite datume</mat-label>
+                                    <mat-date-range-input [rangePicker]="picker" [min]="minDate">
+                                      <input matStartDate formControlName="datum_OD" placeholder="Start date">
+                                      <input matEndDate formControlName="datum_DO" placeholder="End date">
+                                    </mat-date-range-input>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                  
+                                    <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+                                    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type='submit' mat-flat-button class="butt" (click)="pronadji()">PRONAĐI</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <!-- <button mat-flat-button class="butt">PRONAĐI</button>  -->
+                    <!-- class="butt" --> 
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+<div class="container py-5 text-center">
+    <div class="row">
+        <div class="col-sm-4">
+            <mat-card class="example-card">
+                <img mat-card-image src="/assets/ski-oprema-1.jpg" alt="Ski skole">
+                <mat-card-header>
+                  <mat-card-title>SKI ŠKOLE</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button class="details" mat-raised-button (click)="ski_skole()">Pogledaj ponudu</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-sm-4">
+            <mat-card class="example-card">
+                <img mat-card-image src="/assets/smestaj.jpg" alt="Smestaj">
+                <mat-card-header>
+                  <mat-card-title>HOTELI I APARTMANI</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button class="details" mat-raised-button (click)="smestaj()">Pogledaj ponudu</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+        <div class="col-sm-4">
+            <mat-card class="example-card">
+                <img mat-card-image src="/assets/stara-4.jpg" alt="Photo of Stara planina">
+                <mat-card-header>
+                  <mat-card-title>PLANINARSKE AVANTURE</mat-card-title>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button class="details" mat-raised-button (click)="plan_ture()">Pogledaj ponudu</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</div>
+
+ 

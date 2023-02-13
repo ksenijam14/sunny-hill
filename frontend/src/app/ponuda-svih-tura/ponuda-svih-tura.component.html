@@ -1,0 +1,74 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h2 class="alert-heading">PLANINARSKE TURE U PONUDI</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 padd">
+            <form [formGroup]="formaSearch" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <table>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Izaberite planinu:</mat-label>
+                                <mat-select formControlName="planina" (selectionChange)='dohvTurePoPlanini($event)'>
+                                  <mat-option value="sve">Sve planine</mat-option> 
+                                  <mat-option *ngFor='let lok of sveLokacije' value='{{lok}}'>{{lok}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+            </form> 
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div infinite-scroll (scrolled)="onScrollDown($event)"> -->
+            <div class="content col-sm-12"> 
+                <div fxLayout="row wrap" fxLayoutGap="16px grid" class = "justify-content-md-center pera">
+                    <div  fxFlex="33%" fxFlex.xs="100%" fxFlex.sm="30%" *ngFor="let d of sveTure">
+                        <mat-card class="example-card mat-elevation-z0">
+                            <mat-card-header>
+                                <mat-card-title>{{d.nazivP}}</mat-card-title>
+                            </mat-card-header>
+                            <img mat-card-image src="http://localhost:4000/planinari/{{d.slike[0]}}"  alt="Planina" height="200px"> 
+                            <!-- src="{{srcImg}}" -->
+                            <!-- /assets/pala-olimpico.jpg -->
+                            <mat-card-content align="left"> 
+                                <div *ngIf="d.br_dana==1">
+                                    <h4>{{d.naslov}} (jednodnevna)</h4>
+                                </div>
+                                <div *ngIf="d.br_dana>1">
+                                    <h3>{{d.naslov}} ({{d.br_dana}} dana)</h3>
+                                </div>
+                                <div>
+                                    <mat-icon>location_on</mat-icon><span class="aligned-with-icon" id="ime_plan">{{d?.lokacija}}</span>
+                                </div>
+                                <div>
+                                    <mat-icon>money</mat-icon><span class="aligned-with-icon">{{d?.cena}} din</span>
+                                </div>
+                                <div *ngIf="d.br_dana==1">
+                                    <mat-icon>calendar_month</mat-icon><span class="aligned-with-icon">{{d?.datum_OD | date: 'dd. MM. yyyy'}}</span>
+                                </div>
+                                <div *ngIf="d.br_dana>1">
+                                    <mat-icon>calendar_month</mat-icon><span class="aligned-with-icon">{{d?.datum_OD | date: 'dd. MM. yyyy'}} - {{d?.datum_DO | date: 'dd. MM. yyyy.'}}</span>
+                                </div>
+                                <hr>
+                                <div class="details2">
+                                    <button class="details" mat-raised-button (click)="detalji(d?._id)">POGLEDAJ TURU</button>
+                                </div>
+                                
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <!-- <button class="details" mat-raised-button (click)="detalji(d?._id)">POGLEDAJ TURU</button> -->
+                            </mat-card-actions>
+                        </mat-card>
+                    </div> 
+                </div>
+            </div> 
+        <!-- </div> -->
+    </div>
+</div>

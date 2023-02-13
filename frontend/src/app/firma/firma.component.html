@@ -1,0 +1,432 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd">
+            <div class="alert alert-success" role="alert">
+                <p>Dobro dosli, {{ulogovan.ime_prezime!}}</p>
+                <p>Molimo Vas da unesete dodatne podatke o biznisu {{ulogovan.nazivP}}.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-2 col-sm-8">
+            <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+                <li [ngbNavItem]="1">
+                  <a ngbNavLink>Hoteli/apartmani</a>
+                  <ng-template ngbNavContent>
+                    <div class="col-sm-12">
+                        <!-- <div *ngIf="ulogovan.tip=='preduzece'"> -->
+                            <form [formGroup]="formaHotel" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                <table class="center">
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Kategorija:</label>
+                                            <!-- <br> -->
+                                            <mat-radio-group aria-label="Select an option" formControlName="kategorija">
+                                                <mat-radio-button value="hotel">hotel</mat-radio-button>
+                                                <mat-radio-button value="apartman">apartmani</mat-radio-button>
+                                                <!-- <div *ngIf="isSubmitted && !formaAdddata.valid">
+                                                    <p style="color:red;">Morate odabrati kategoriju!</p>
+                                                </div> -->
+                                            </mat-radio-group>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div class="row">
+                                                <div class="col-sm-2">
+                                                    <label class="aligned-with-icon">Broj zvezdica:</label>
+                                                </div>
+                                                <div class="col-sm-10">
+                                                    <a (click)="rate(indexes[0])" class="button-star ">
+                                                        <mat-icon [ngClass]="{'selected': indexes[0] <= rating}">stars</mat-icon>
+                                                    </a>
+                                                    <a (click)="rate(indexes[1])" class="button-star">
+                                                        <mat-icon [ngClass]="{'selected': indexes[1] <= rating}">stars</mat-icon>
+                                                    </a>
+                                                    <a (click)="rate(indexes[2])" class="button-star">
+                                                        <mat-icon [ngClass]="{'selected': indexes[2] <= rating}">stars</mat-icon>
+                                                    </a>
+                                                    <a (click)="rate(indexes[3])" class="button-star">
+                                                        <mat-icon [ngClass]="{'selected': indexes[3] <= rating}">stars</mat-icon>
+                                                    </a>
+                                                    <a (click)="rate(indexes[4])" class="button-star">
+                                                        <mat-icon [ngClass]="{'selected': indexes[4] <= rating}">stars</mat-icon>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Vrste soba:</label>
+                                            <label class='margine_checkbox' formArrayName="vrste_soba" *ngFor="let order of vrsteSobaFormArray.controls; let i = index">
+                                                <mat-checkbox [formControlName]="i">
+                                                    {{vrste_soba_data[i].name}}
+                                                </mat-checkbox>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Opremljenost soba:</label>
+                                            <label class='margine_checkbox' formArrayName="opremljenost" *ngFor="let order of opremljenostFormArray.controls; let i = index">
+                                                <mat-checkbox [formControlName]="i">
+                                                    {{opremljenost_data[i].name}}
+                                                </mat-checkbox>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Hrana:</label>
+                                            <label class='margine_checkbox' formArrayName="hrana" *ngFor="let order of hranaFormArray.controls; let i = index">
+                                                <mat-checkbox [formControlName]="i">
+                                                    {{hrana_data[i].name}}
+                                                </mat-checkbox>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Sadržaji za relaksaciju:</label>
+                                            <mat-checkbox class="margine_checkbox" formControlName="relax">Da</mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="ziro_racun_h">
+                                                <div
+                                                  *ngFor="let ziroGroup of ziro_racun_h?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                    <label class="label_kat">Ziro racun - {{i + 1}}</label>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                          <input type="text" class="form-control cena_noc" formControlName="broj" placeholder="Broj ziro racuna*" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <input type="text" class="form-control" formControlName="broj" placeholder="Broj ziro racuna*" /> -->
+                                                    <div *ngIf="ziro_racun_h.controls[i].get('broj').hasError('pattern')">
+                                                        <p style="color:red;">Ziro racun nije u dobrom formatu!</p>
+                                                    </div>
+                                                    <div *ngIf="ziro_racun_h.controls[i].get('broj').hasError('required') && ziro_racun_h.controls[i].get('broj').touched">
+                                                        <p style="color:red;">Ziro racun je obavezan!</p>
+                                                    </div>
+                                                    <!-- </mat-form-field> -->
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="noviZiroRacun_h()">+ ziro racun</button>
+                                        </td>
+                                    </tr>
+                                    <!-- Cene za sobe -->
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="soba">
+                                                <div
+                                                  *ngFor="let sobaGroup of soba?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                  <label class="label_kat">Soba - {{i + 1}}</label>
+                                                  <br>
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Tip sobe</mat-label>
+                                                        <mat-select formControlName="tipS">
+                                                          <!-- <mat-option *ngFor='let s of sobe' value='{{s.tip}}'>{{s.tip}}</mat-option> -->
+                                                          <mat-option value="jednokrevetna">Jednokrevetna</mat-option>
+                                                          <mat-option value="dvokrevetna">Dvokrevetna</mat-option>
+                                                          <mat-option value="sa_pogledom">Sa pogledom na prirodu</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                          <input type="number" class="form-control cena_noc" formControlName="cena_nocenja" placeholder="Cena nocenja" />
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="soba.controls[i].get('cena_nocenja').hasError('required') && soba.controls[i].get('cena_nocenja').touched">
+                                                        <p style="color:red;">Cena nocenja je obavezna!</p>
+                                                    </div>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-4">
+                                                          <input type="number" class="form-control cena_noc" formControlName="br_soba" placeholder="Broj soba tog tipa" />
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="soba.controls[i].get('br_soba').hasError('required') && soba.controls[i].get('br_soba').touched">
+                                                        <p style="color:red;">Broj soba je obavezno polje!</p>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="novaSoba()">+ soba</button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <!-- SLIKE, treba da se omoguci multiple files -->
+                                        <td>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-5">
+                                                    <label class="label_kat" for="exampleInputImage">Slike:</label>
+                                                    <br>
+                                                    <br>
+                                                    <input type="file" (change)="onFileChange($event)" class="form-control" id="exampleInputImage" accept="image/png, image/jpeg" formControlName="media" name="media" multiple>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr colspan="2">
+                                        <td colspan="2">
+                                            <mat-form-field class="dodatne_usluge" appearance="fill">
+                                                <mat-label>Dodatne usluge ukljucene u cenu boravka</mat-label>
+                                                <textarea matInput placeholder="Npr koriscenje spa centra..." formControlName="dodatno"></textarea>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="padd text-center">
+                                                <button type="submit" mat-raised-button color="primary" (click)="unesiPodatkeHotel()">UNESI PODATKE</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                            
+                        <!-- </div> -->
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="2">
+                  <a ngbNavLink>Ski škole</a>
+                  <ng-template ngbNavContent>
+                    <div class="col-sm-12">
+                        <!-- <div *ngIf="ulogovan.tip=='preduzece'"> -->
+                            <form [formGroup]="formaSki" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                <table class="center">
+                                    <tr>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Časovi za</mat-label>
+                                                <mat-select formControlName="casovi_za" multiple>
+                                                    <mat-option value="skijanje">Skijanje</mat-option>
+                                                    <mat-option value="bord">Bord</mat-option>
+                                                </mat-select>
+                                                <mat-error *ngIf="myErrorSki('casovi_za', 'required')">Obavezno polje!</mat-error>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <!-- <hr> -->
+                                    <tr>
+                                        <td>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cena casa</mat-label>
+                                                <input matInput formControlName="cena_casa" type="number">
+                                                <mat-error *ngIf="myErrorSki('cena_casa', 'required')">Cena casa je obavezno polje!</mat-error>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="ziro_racun_s">
+                                                <div
+                                                  *ngFor="let ziroGroup of ziro_racun_s?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                    <label class="label_kat">Ziro racun - {{i + 1}}</label>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-7">
+                                                          <input type="text" class="form-control cena_noc" formControlName="broj" placeholder="Broj ziro racuna*" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <input type="text" class="form-control" formControlName="broj" placeholder="Broj ziro racuna*" /> -->
+                                                    <div *ngIf="ziro_racun_s.controls[i].get('broj').hasError('pattern')">
+                                                        <p style="color:red;">Ziro racun nije u dobrom formatu!</p>
+                                                    </div>
+                                                    <div *ngIf="ziro_racun_s.controls[i].get('broj').hasError('required') && ziro_racun_s.controls[i].get('broj').touched">
+                                                        <p style="color:red;">Ziro racun je obavezan!</p>
+                                                    </div>
+                                                    <!-- </mat-form-field> -->
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="noviZiroRacun_s()">+ ziro racun</button>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="instruktor">
+                                                <div
+                                                  *ngFor="let instruktorGroup of instruktor?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                  <label class="label_kat">Instruktor - {{i + 1}}</label>
+                                                  <br>
+                                                    <mat-form-field appearance="outline">
+                                                        <mat-label>Skijanje/bord</mat-label>
+                                                        <mat-select formControlName="drzi_za" multiple>
+                                                          <!-- <mat-option *ngFor='let s of sobe' value='{{s.tip}}'>{{s.tip}}</mat-option> -->
+                                                          <mat-option value="ski">Skijanje</mat-option>
+                                                          <mat-option value="bord">Bord</mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-7">
+                                                          <input type="text" class="form-control cena_noc" formControlName="ime_prezime" placeholder="Instruktor" />
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="instruktor.controls[i].get('ime_prezime').hasError('required') && instruktor.controls[i].get('ime_prezime').touched">
+                                                        <p style="color:red;">Ime instruktora je obavezno!</p>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="novInstruktor()">+ instruktor</button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label class="label_kat">Mogucnost iznajmljivanja opreme:</label>
+                                            <mat-checkbox class="margine_checkbox" formControlName="oprema">Da</mat-checkbox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td *ngIf="formaSki.value.oprema==true">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cena iznajmljivanja</mat-label>
+                                                <input matInput formControlName="cena_opreme" type="number">
+                                                <mat-error *ngIf="myErrorSki('cena_opreme', 'required')">Cena opreme je obavezno polje!</mat-error>
+                                            </mat-form-field>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div class="form-row">
+                                                <div class="form-group">
+                                                    <label class="label_kat" for="exampleInputImage">Slike:</label>
+                                                    <br>
+                                                    <br>
+                                                    <input type="file" (change)="onFileChangeSki($event)" class="form-control" id="exampleInputImage" accept="image/png, image/jpeg" formControlName="media" name="media" multiple>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="padd text-center">
+                                                <button type="submit" mat-raised-button color="primary" (click)="unesiPodatkeSki()">UNESI PODATKE</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        <!-- </div> -->
+                    </div>
+                  </ng-template>
+                </li>
+                <li [ngbNavItem]="3">
+                  <a ngbNavLink>Planinarska društva</a>
+                  <ng-template ngbNavContent>
+                    <div class="col-sm-12">
+                        <!-- <div *ngIf="ulogovan.tip=='preduzece'"> -->
+                            <form [formGroup]="formaPlan" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                                <table class="center">
+                                    <tr>
+                                        <td colspan="2">
+                                            <h3>Unesite nazive planina na kojima organizujete planinarenja</h3> 
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="planine">
+                                                <div
+                                                  *ngFor="let planineGroup of planine?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                  <label class="label_kat">Planina - {{i + 1}}</label>
+                                                  <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group">
+                                                        <input type="text" class="form-control cena_noc" formControlName="naziv" placeholder="Naziv planine" />
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="planine.controls[i].get('naziv').hasError('required') && planine.controls[i].get('naziv').touched">
+                                                        <p style="color:red;">Ime planine je obavezno!</p>
+                                                    </div>
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="novaPlanina()">+ planina</button>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <hr>
+                                    <tr>
+                                        <td>
+                                            <div formArrayName="ziro_racun_p">
+                                                <div
+                                                  *ngFor="let ziroGroup of ziro_racun_p?.controls; let i = index"
+                                                  [formGroupName]="i"
+                                                >
+                                                    <label class="label_kat">Ziro racun - {{i + 1}}</label>
+                                                    <br>
+                                                    <div class="form-row">
+                                                        <div class="form-group col-md-12">
+                                                          <input type="text" class="form-control cena_noc" formControlName="broj" placeholder="Broj ziro racuna*" />
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- <input type="text" class="form-control" formControlName="broj" placeholder="Broj ziro racuna*" /> -->
+                                                    <div *ngIf="ziro_racun_p.controls[i].get('broj').hasError('pattern')">
+                                                        <p style="color:red;">Ziro racun nije u dobrom formatu!</p>
+                                                    </div>
+                                                    <div *ngIf="ziro_racun_p.controls[i].get('broj').hasError('required') && ziro_racun_p.controls[i].get('broj').touched">
+                                                        <p style="color:red;">Ziro racun je obavezan!</p>
+                                                    </div>
+                                                    <!-- </mat-form-field> -->
+                                                </div>
+                                              </div>
+                                              <button mat-button color="primary" (click)="noviZiroRacun_p()">+ ziro racun</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="padd text-center">
+                                                <button type="submit" mat-raised-button color="primary" (click)="unesiPodatkePlan()">UNESI PODATKE</button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </form>
+                        <!-- </div> -->
+                    </div>
+                  </ng-template>
+                </li>
+              </ul>
+              
+              <div [ngbNavOutlet]="nav" class="mt-2"></div>
+              
+              <!-- <pre>Active: {{ active }}</pre> -->
+        </div>
+    </div>
+</div>

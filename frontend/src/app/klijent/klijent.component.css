@@ -1,0 +1,28 @@
+.container{
+    margin-top: 100px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.klijent {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    /* margin-bottom: 70px; */
+}
+
+.klijent td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+.klijent tr:nth-child(even) {
+    background-color: #dddddd;
+}

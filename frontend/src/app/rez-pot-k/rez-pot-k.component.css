@@ -1,0 +1,112 @@
+.container{
+    padding-top: 70px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.left{
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.card-header{
+    font-weight: 550;
+    font-size: large;
+}
+.card-title{
+    font-weight: 550;
+    font-size: medium;
+
+}
+
+.preduzeca td, th {
+    /* border: 1px solid #dddddd; */
+    text-align: left;
+    padding-right: 8px; 
+    padding-bottom: 8px;
+}
+
+#adr{
+    text-transform: capitalize;
+}
+
+.placanje{
+    padding: 70px 0;
+    /* border: 3px solid green; */
+    text-align: center;
+    font-weight: 600;
+}
+
+.prihvati{
+    /* background-color:#1be796; */
+    background-color: #71a4df;
+    color: white;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.prihvati:focus{
+    background-color:#5498e5;
+   
+}
+
+.comment{
+    background-color:#f0ad4e;
+    color:white;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.comment:focus{
+    background-color:#f4940d;
+   
+}
+
+.komentar{
+    text-align:left;
+    align-items:flex-start;
+}
+
+.selected{
+    color: orange;
+}
+
+mat-icon{
+    color: grey;
+}
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}
+
+.star_color{
+    color: orange;
+}
+
+.aligned-with-icon{
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+}
+.notes_color{
+    color: #78818a;
+}

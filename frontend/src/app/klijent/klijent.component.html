@@ -1,0 +1,26 @@
+<app-meni-klijent></app-meni-klijent>
+<div class="container">
+    <div class="row top-buffer justify-content-md-center">
+        <div class="col-sm-6">
+            <h3>MOJI PODACI</h3>
+            <table class="klijent" >
+                <tr>
+                    <td>Ime i prezime:</td>
+                    <td>{{ulogovan.ime_prezime}}</td>
+                </tr>
+                <tr>
+                    <td>Korisničko ime:</td>
+                    <td>{{ulogovan.kor_ime}}</td>
+                </tr>
+                <tr>
+                    <td>Telefon:</td>
+                    <td>{{ulogovan?.telefon}}</td>
+                </tr>
+                <tr>
+                    <td>E-mail:</td>
+                    <td>{{ulogovan?.email}}</td>
+                </tr>
+            </table>  
+        </div>
+    </div>
+</div>

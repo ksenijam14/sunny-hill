@@ -1,0 +1,106 @@
+body,
+html {
+  height: 100%;
+}
+.bg{
+  background-image: url(/assets/view-mount.jpg);
+  height: 60%;
+  /* width: 98%; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    background-color: #a4b4c4;
+    color: white;
+    font-weight: 500;
+}
+
+.container{
+    /* text-align: center; */
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+    /* background-color: rgb(241, 246, 246); */
+}
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}
+
+.info{
+    align-items: center;
+}
+
+.info p{
+    margin-left: 20px;
+}
+
+mat-icon{
+    color:rgb(17, 186, 17);
+}
+
+.card-search{
+    height: 300px;
+    width: 300px;
+    text-align: center;
+}
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.padd{
+    padding-top: 10px;
+}
+
+.headline{
+    font-size: 300%;
+    font-weight: bolder;
+    color:aliceblue;
+    align-items: center;
+    text-align: right;
+    
+}
+
+.first{
+    display: flex;
+    align-items:center;
+    font-size: 120%;
+}
+
+.headline2{
+    font-size: 160%;
+    /* color:aliceblue; */
+    align-items: center;
+    text-align: left;
+    margin-bottom: 40px;
+    color: #a4b4c4;
+}
+
+.reg_table{
+    margin-top:50px;
+}
+.table_heading{
+    font-size: 160%;
+    text-align: center;
+}
+
+

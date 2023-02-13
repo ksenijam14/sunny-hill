@@ -1,0 +1,58 @@
+.container{
+    margin-top: 100px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.headerToolbar{
+    flex: 1 1 auto;
+}
+
+
+.example-card {
+    max-width: 300px; 
+    max-height: 500px; 
+}
+
+
+.content {
+    padding: 16px;
+}
+
+/* .mat-card{
+    border: 55px !important;
+    border: #000 !important;
+} */
+
+.mat-card {
+    box-shadow: 0px 0px 10px 0px #9b9b9b,
+        0 1px 1px 0 #9b9b9b,
+        0 1px 3px 0 #9b9b9b;
+}
+
+.details{
+    border-radius: 20px !important;
+    background-color:#32a899;
+    color: white;
+}
+
+.aligned-with-icon{
+    /* text-transform: capitalize; */
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+}
+
+#ime_plan{
+     text-transform: capitalize;
+}

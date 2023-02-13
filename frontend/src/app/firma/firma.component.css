@@ -1,0 +1,75 @@
+.padd{
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.padd p{
+    font-size: 120%;
+}
+
+.container{
+    margin-top: 70px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+.center{
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.label_kat{
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+    margin-left: 16px;
+}
+.margine_checkbox {
+    margin: 0 10px;
+}
+
+.dodatne_usluge {
+    width: 100%;
+}
+
+.selected{
+    color: orange;
+}
+
+mat-icon{
+    color: grey;
+}
+
+/* .button-star{
+    width: 5%;
+    height: 5%
+}  */
+
+.aligned-with-icon{
+    font-weight: bold;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /*optional */
+}
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}
+
+.cena_noc{
+    background-color: rgb(241, 246, 246) !important;
+}
+

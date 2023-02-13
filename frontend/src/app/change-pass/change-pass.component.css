@@ -1,0 +1,47 @@
+.container{
+    margin-top: 100px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+.padd-logo{
+    padding-left: 90px;
+    padding-bottom: 20px;
+}
+
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    background-color: #bcc5cf;
+    color: white;
+    font-weight: 500;
+}
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}

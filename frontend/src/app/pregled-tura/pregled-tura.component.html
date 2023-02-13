@@ -1,0 +1,39 @@
+<app-meni-firme></app-meni-firme>
+
+<div class="container">
+    <div class="row">
+        <!-- <div infinite-scroll (scrolled)="onScrollDown($event)"> -->
+            <div class="content col-sm-12"> 
+                <div fxLayout="row wrap" fxLayoutGap="16px grid" class = "justify-content-md-center">
+                    <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let v of sveTure">
+                        <mat-card class="example-card mat-elevation-z0">
+                            <mat-card-header>
+                                <mat-card-title>{{v.naslov}}</mat-card-title>
+                            </mat-card-header>
+                            <img mat-card-image src="http://localhost:4000/planinari/{{v.slike[0]}}"  alt="Planina" height="200px"> 
+                            <!-- src="{{srcImg}}" -->
+                            <!-- /assets/pala-olimpico.jpg -->
+                            <mat-card-content align="left"> 
+                                <div>
+                                    <mat-icon>location_on</mat-icon><span class="aligned-with-icon" id="ime_plan">{{v.lokacija}}</span>
+                                </div>
+                                <div *ngIf="v.br_dana==1">
+                                    <mat-icon>date_range</mat-icon><span class="aligned-with-icon">{{v.datum_OD | date:'dd-MM-yyyy'}} (jednodnevna) </span>
+                                </div>
+                                <div *ngIf="v.br_dana>1">
+                                    <mat-icon>date_range</mat-icon><span class="aligned-with-icon">{{v.datum_OD | date:'dd-MM-yyyy'}} ({{v.br_dana}} dana) </span>
+                                </div>
+                                
+                                <!-- <p><mat-icon>location_on</mat-icon> {{v.lokacija}}</p>
+                                <p>Datum: {{v.datum_OD | date:'dd-MM-yyyy'}}</p> -->
+                            </mat-card-content>
+                            <mat-card-actions>
+                                <button class="details" mat-raised-button (click)="show_details(v._id)">POGLEDAJ DETALJE</button>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </div>
+            </div> 
+        <!-- </div> -->
+    </div>
+</div>

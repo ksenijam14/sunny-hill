@@ -1,0 +1,187 @@
+<app-meni-classic></app-meni-classic>
+<div class="bg">
+
+    <div class="container">
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6 padd" *ngIf="detaljiTure?.br_dana==1">
+                <h1 class="headline">{{detaljiTure?.naslov}} by {{detaljiTure?.nazivP}}, {{detaljiTure?.datum_OD | date:'dd.MM.yyyy.'}} (jednodnevna)</h1>
+            </div>
+            <div class="offset-sm-3 col-sm-6 padd" *ngIf="detaljiTure?.br_dana>1">
+                <h1 class="headline">{{detaljiTure?.naslov}} by {{detaljiTure?.nazivP}}, {{detaljiTure?.datum_OD | date:'dd.MM.yyyy.'}} ({{detaljiTure?.br_dana}} dana)</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6">
+                <table class="tabela">
+                    <!-- <tr>
+                        <td style="font-weight:bold">OPIS:</td>
+                    </tr> -->
+                    <tr>
+                        <td>{{detaljiTure?.opis}}</td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <div class="row">
+                            <!-- <h2>Slajder slika</h2> -->
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                  <div class="carousel-item active">
+                                    <img [src]="imageObject[0]['image']" width="700px">
+                                  </div>
+                                  <div class="carousel-item" *ngFor="let img of imageObject let i = index">
+                                    <img  [src]="img['image']" width="700px">
+                                  </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon ikonica" aria-hidden="true"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon ikonica" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">PROGRAM:</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{detaljiTure?.program}}</td>  
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">SAVETI:</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{detaljiTure?.saveti}}</td>  
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">CENA: {{detaljiTure?.cena}} din</td>
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">U CENU JE UKLJUCENO:</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{detaljiTure?.ukljuceno}}</td>  
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">U CENU NIJE UKLJUCENO:</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{detaljiTure?.nije_ukljuceno}}</td>  
+                    </tr>
+                    <br>
+                    <br>
+                    <tr>
+                        <td style="font-weight:bold">NAPOMENE:</td>
+                    </tr>
+                    <br>
+                    <tr>
+                        <td>{{detaljiTure?.napomene}}</td>  
+                    </tr>
+                    <br>
+                    <br>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 left">
+                <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <table class="center">
+                        <tr>
+                            <td colspan="2">
+                                <h3 class="table_heading">REZERVACIJA</h3> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Broj mesta koji zelite</mat-label>
+                                    <input matInput formControlName="br_mesta" type="number">
+                                    <mat-error *ngIf="myError('br_mesta', 'required')">Broj mesta je obavezno polje!</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Kontakt telefon</mat-label>
+                                    <input matInput formControlName="br_tel">
+                                    <mat-error *ngIf="myError('br_tel', 'required')">Kontakt telefon je obavezno polje!</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Dodatne informacije</mat-label>
+                                    <textarea matInput placeholder="..." formControlName="dodatni_info"></textarea>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="padd text-center">
+                                    <button type="submit" mat-raised-button color="primary" (click)="rezervacija()">REZERVIŠI</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div *ngIf='showAlertOK==true' class="padd">
+                                    <div class="alert alert-info" role="alert">
+                                        {{message}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div *ngIf='showAlertErr==true' class="padd">
+                                    <div class="alert alert-danger" role="alert">
+                                        {{message}} 
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="row">
+            <div class="offset-sm-3 col-sm-6 padd">
+                <h3><b>KOMENTARI O PLANINARSKOM DRUŠTVU:</b></h3>
+                <hr>
+                <div class="col-sm-12" *ngFor="let kom of detaljiSk[0]?.detalji_skole[0]?.komentari"> 
+                    <div align="left">
+                        <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                            <div align="left">
+                                <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                <span class="aligned-with-icon">{{kom?.text}} by {{kom?.klijent}}</span>
+                            </div>
+                            <div align="left">
+                                <mat-icon class="star_color">star_rate</mat-icon>
+                                <span class="aligned-with-icon">{{kom?.ocena}}/10</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    </div>
+    

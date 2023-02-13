@@ -1,0 +1,9 @@
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.padd_but{
+    margin-bottom: 10px;
+}

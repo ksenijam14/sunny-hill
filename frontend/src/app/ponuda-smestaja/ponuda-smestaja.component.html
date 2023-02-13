@@ -1,0 +1,55 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h2 class="alert-heading">PONUDA SMEŠTAJA</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <!-- <div infinite-scroll (scrolled)="onScrollDown($event)"> -->
+            <div class="content col-sm-12"> 
+                <div fxLayout="row wrap" fxLayoutGap="16px grid" class = "justify-content-md-center">
+                    <div fxFlex="30%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let v of smestaji">
+                        <mat-card class="example-card mat-elevation-z0">
+                            <div *ngFor="let d of v.detalji_hotela">
+                                <mat-card-header>
+                                    <mat-card-title>{{v.nazivP}}</mat-card-title>
+                                </mat-card-header>
+                                <img mat-card-image src="http://localhost:4000/home/{{v.slika}}"  alt="Hotel/apartman" height="200px"> 
+                                <!-- src="{{srcImg}}" -->
+                                <!-- /assets/pala-olimpico.jpg -->
+                                <mat-card-content align="left"> 
+                                    <div >
+                                        <mat-icon *ngFor="let in of counter(d.br_zvezdica) ;let i = index" class="star_color">star_rate</mat-icon><span class="aligned-with-icon" id="ime_plan"></span>
+                                    </div>
+                                    <div>
+                                        <mat-icon>king_bed</mat-icon><span class="aligned-with-icon">{{v.tip}}</span>
+                                    </div>
+                                    <div *ngIf="d.ocena>0; else nemaOcena">
+                                        <mat-icon>insights</mat-icon><span class="aligned-with-icon">{{d.ocena}}/10</span>
+                                    </div>
+                                    <div *ngIf="d.relax==true">
+                                        <mat-icon>spa</mat-icon><span class="aligned-with-icon">Poseduje spa</span>
+                                    </div>
+                                    <div *ngIf="d.popust>0; else nemaPopust">
+                                        <mat-icon>discount</mat-icon><span class="aligned-with-icon">{{d.popust}}%</span>
+                                    </div>
+                                </mat-card-content>
+                                <mat-card-actions>
+                                    <button class="details" mat-raised-button (click)="vidiDetalje(v?._id)">VIDI DETALJE I REZERVIŠI</button>
+                                </mat-card-actions>
+                            </div> 
+                            </mat-card>
+                            <ng-template #nemaOcena>
+                                <mat-icon>insights</mat-icon><span class="aligned-with-icon">Smestaj jos nije ocenjen</span>
+                            </ng-template>
+                            <ng-template #nemaPopust>
+                                <mat-icon>discount</mat-icon><span class="aligned-with-icon">Trenutno nema popusta</span>
+                            </ng-template>
+                    </div>
+                </div>
+            </div> 
+        <!-- </div> -->
+    </div>
+</div>

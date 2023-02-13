@@ -1,0 +1,190 @@
+<app-meni-firme></app-meni-firme>
+<div class="container">
+    <!-- //------------------------------- ZA SKI SKOLE -----------------------------// -->
+    <div *ngIf="ulogovan.tip=='ski_skola'">
+        <div class="row">
+            <div *ngFor="let ski of rezSkiIspis" >
+                <div *ngFor="let rez of ski?.rezervacije let i = index">
+                    <div class="col-sm-6 left">
+                        <div class="card" *ngIf="rez['status']=='odobrena'">
+                            <h4 class="card-header">ID rezervacije: {{rez['_id']}}</h4>
+                            <div class="card-body">
+                            <h5 class="card-title">Klijent: {{rez['klijent']}}</h5>
+                            <div class="card-text">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <table class="preduzeca">
+                                            <tr>
+                                                <th>Datum:</th>
+                                                <td>{{rez['datum'] | date: 'dd. MM. yyyy.'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Vreme:</th>
+                                                <td>{{rez['vreme']}}h</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Instruktor:</th>
+                                                <td>{{ski?.id_instruktora}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Oprema:</th>
+                                                <td *ngIf="rez['renta_opreme']==true">Potrebna</td>
+                                                <td *ngIf="rez['renta_opreme']!=true">Nije potrebna</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-6 placanje" *ngIf="rez['renta_opreme']==true">
+                                        <h3><b>Ukupno za uplatu: </b>{{detaljiSk?.cena_casa + detaljiSk?.cena_opreme}} din</h3>
+                                    </div>
+                                    <div class="col-sm-6 placanje" *ngIf="rez['renta_opreme']==false">
+                                        <h3><b>Ukupno za uplatu: </b>{{detaljiSk?.cena_casa}} din</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn odbij" (click)="odbijRezSki(rez['_id'], i)">ODBIJ</button>
+                            <div *ngIf='showAlertOK[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                            <div *ngIf='showAlertErr[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row">
+            <div *ngIf="nema_odobrenih == true">
+                <h2>TRENUTNO NE POSTOJE ODOBRENE REZERVACIJE</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- //------------------------------- ZA PLANINARE -----------------------------// -->
+    <div *ngIf="ulogovan.tip=='planinari'">
+        <div class="row">
+            <div *ngFor="let tura of rezTura let i=index">
+                <div class="col-sm-6 left">
+                    <div class="card" *ngIf="tura?.rezervacija?.status=='odobrena'">
+                        <h4 class="card-header">ID rezervacije: {{tura?.rezervacija?._id}}</h4>
+                        <div class="card-body">
+                            <h5 class="card-title">Klijent: {{tura?.rezervacija?.klijent}}</h5>
+                            <div class="card-text">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <table class="preduzeca">
+                                            <tr>
+                                                <th>Tura:</th>
+                                                <td>{{tura?.naslov}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Potrebnih mesta:</th>
+                                                <td>{{tura?.rezervacija?.br_mesta}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kontakt telefon:</th>
+                                                <td>{{tura?.rezervacija?.br_tel}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dodatne informacije:</th>
+                                                <td>{{tura?.rezervacija?.dodatni_info}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-4 placanje">
+                                        <h3><b>Ukupno za uplatu: </b>{{tura?.cena * tura?.rezervacija?.br_mesta}} din</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn odbij" (click)="odbijRezTure(tura?.rezervacija?._id, i)">ODBIJ</button>
+                            <div *ngIf='showAlertOK[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                            <div *ngIf='showAlertErr[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+        <div class="row">
+            <div *ngIf="nema_odobrenih == true">
+                <h2>TRENUTNO NE POSTOJE ODOBRENE REZERVACIJE</h2>
+            </div>
+        </div>
+    </div>
+    <!-- //------------------------------- ZA HOTELE I APARTMANE -----------------------------// -->
+    <div *ngIf="ulogovan.tip=='hotel' || ulogovan.tip=='apartman'">
+        <div class="row">
+            <div *ngFor="let smestaj of rezSm let i=index">
+                <div class="col-sm-6 left">
+                    <div class="card" *ngIf="smestaj?.status=='odobrena'">
+                        <h4 class="card-header">ID rezervacije: {{smestaj?.idRez}}</h4>
+                        <div class="card-body">
+                            <h5 class="card-title">Klijent: {{smestaj?.klijent}}</h5>
+                            <div class="card-text">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <table class="preduzeca">
+                                            <tr>
+                                                <th>Datumi boravka:</th>
+                                                <td>{{smestaj?.datum_OD | date: 'dd. MM. yyyy'}} - {{smestaj?.datum_DO | date: 'dd. MM. yyyy.'}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Soba:</th>
+                                                <td>{{smestaj?.tip_sobe}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Broj osoba:</th>
+                                                <td>{{smestaj?.br_osoba}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Kontakt telefon:</th>
+                                                <td>{{smestaj?.br_tel}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dodatne informacije:</th>
+                                                <td>{{smestaj?.dodatne_info}}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="col-sm-4 placanje">
+                                        <h3><b>Ukupno za uplatu: </b> din</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn odbij" (click)="odbijRezSmestaja(smestaj?.idRez, i)">ODBIJ</button>
+                            <div *ngIf='showAlertOK[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                            <div *ngIf='showAlertErr[i]==true' class="padd styleAlert col-sm-6">
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+        <div class="row">
+            <div *ngIf="nema_odobrenih == true">
+                <h2>TRENUTNO NE POSTOJE ODOBRENE REZERVACIJE</h2>
+            </div>
+        </div>
+    </div>
+</div>
+

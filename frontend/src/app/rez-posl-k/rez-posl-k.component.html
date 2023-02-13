@@ -1,0 +1,229 @@
+<app-meni-klijent></app-meni-klijent>
+<div class="container">
+    <div class="row">
+        <div *ngIf='helloAlert==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Zdravo, {{ulogovan.ime_prezime}}!</h4>
+            <p>U sekciji menija ''Poslate rezervacije'' možete proveriti podatke novoposlatih 
+                i odbijenih rezervacija.
+            </p>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Rezervacije smeštaja</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let smestaj of mojSmestaj">
+            <div class="col-sm-7 left">
+                <div class="card" *ngIf="smestaj?.rezervacije?.status=='nova' || smestaj?.rezervacije?.status=='odbijena'">
+                    <h4 class="card-header">ID rezervacije: {{smestaj?.rezervacije?.idRez}}</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">Naziv smeštaja: {{smestaj.nazivP}}</h5>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="preduzeca">
+                                        <tr>
+                                            <th>Adresa:</th>
+                                            <td id="adr">{{smestaj?.adresaP}} {{smestaj?.drzava}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Planina</th>
+                                            <td id="adr">{{smestaj?.planina}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Tip smeštaja</th>
+                                            <td>{{smestaj?.kategorija}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Datumi boravka:</th>
+                                            <td>{{smestaj?.rezervacije?.datum_OD | date: 'dd. MM. yyyy'}} - {{smestaj?.rezervacije?.datum_DO | date: 'dd. MM. yyyy.'}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Soba i broj osoba:</th>
+                                            <td>{{smestaj?.rezervacije?.tip_sobe}}, {{smestaj?.rezervacije?.br_osoba}} osoba/e</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Žiro račun za uplatu:</th>
+                                            <td>187-473582769179-44</td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.dodatne_info==''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.dodatne_info!=''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>{{smestaj?.rezervacije?.dodatne_info}}</td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.status=='nova'">
+                                            <th>Status:</th>
+                                            <td style="color:blue;"><b>{{smestaj?.rezervacije?.status}}</b></td>
+                                        </tr>
+                                        <tr *ngIf="smestaj?.rezervacije?.status=='odbijena'">
+                                            <th>Status:</th>
+                                            <td  style="color:red;"><b>{{smestaj?.rezervacije?.status}}</b></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-5 placanje" *ngIf="smestaj?.rezervacije?.status=='nova'">
+                                    <h3><b>Ukupno za uplatu: </b> 36000 din</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="mojSmestaj.length==0">
+            <h2>TRENUTNO NEMA NOVIH REZERVACIJA SMESTAJA</h2>
+        </div> 
+    </div>
+<!-------------------------------------------------///REZERVACIJE SKI SKOLA///-------------------------------->
+<div class="row">
+    <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+        <h4 class="alert-heading">Rezervacije časova u ski školama</h4>
+        <hr>
+    </div>
+</div>
+<div class="row">
+    <div *ngFor="let ski of mojSki">
+        <div class="col-sm-7 left">
+            <div class="card" *ngIf="ski?.rezervacija?.status=='nova' || ski?.rezervacija?.status=='odbijena'">
+                <h4 class="card-header">ID rezervacije: {{ski?.rezervacija?._id}}</h4>
+                <div class="card-body">
+                    <h5 class="card-title">Naziv ski škole: {{ski.nazivP}}</h5>
+                    <div class="card-text">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <table class="preduzeca">
+                                    <tr>
+                                        <th>Adresa:</th>
+                                        <td id="adr">{{ski?.adresaP}} {{ski?.drzava}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Planina:</th>
+                                        <td id="adr">{{ski?.planina}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Datum i vreme časa:</th>
+                                        <td>{{ski?.rezervacija?.datum | date: 'dd. MM. yyyy.'}} godine u {{ski?.rezervacija?.vreme}}h</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Ime instruktora:</th>
+                                        <td>{{ski?.instruktor}}</td>
+                                    </tr>
+                                    <tr *ngIf="ski?.rezervacija?.renta_opreme==true">
+                                        <th>Potrebna oprema:</th>
+                                        <td>Da</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Žiro račun za uplatu:</th>
+                                        <td>753-473896473582-48</td>
+                                    </tr>
+                                   
+                                    <tr *ngIf="ski?.rezervacija?.status=='nova'">
+                                        <th>Status:</th>
+                                        <td style="color:blue;"><b>{{ski?.rezervacija?.status}}</b></td>
+                                    </tr>
+                                    <tr *ngIf="ski?.rezervacija?.status=='odbijena'">
+                                        <th>Status:</th>
+                                        <td  style="color:red;"><b>{{ski?.rezervacija?.status}}</b></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="col-sm-5 placanje" *ngIf="ski?.rezervacija?.status=='nova' && ski?.rezervacija?.renta_opreme==true">
+                                <h3><b>Ukupno za uplatu: </b> {{ski?.cena_casa + ski?.cena_opreme}} din</h3>
+                            </div>
+                            <div class="col-sm-5 placanje" *ngIf="ski?.rezervacija?.status=='nova' && ski?.rezervacija?.renta_opreme==false">
+                                <h3><b>Ukupno za uplatu: </b> {{ski?.cena_casa}} din</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div *ngIf="mojeTure.length==0">
+        <h2>TRENUTNO NEMA NOVIH REZERVACIJA PLANINARSKIH TURA</h2>
+    </div> 
+</div>
+<!-------------------------------------------------///REZERVACIJE PLANINARSKIH TURA///-------------------------------->
+    <div class="row">
+        <div *ngIf='helloSM==true' class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+            <h4 class="alert-heading">Rezervacije planinarskih tura</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngFor="let tura of mojeTure">
+            <div class="col-sm-7 left">
+                <div class="card" *ngIf="tura?.rezervacija?.status=='nova' || tura?.rezervacija?.status=='odbijena'">
+                    <h4 class="card-header">ID rezervacije: {{tura?.rezervacija?._id}}</h4>
+                    <div class="card-body">
+                        <h5 class="card-title">Naslov planinarske ture: {{tura.nazivTure}}</h5>
+                        <div class="card-text">
+                            <div class="row">
+                                <div class="col-sm-7">
+                                    <table class="preduzeca">
+                                        <tr>
+                                            <th>Naziv planinarskog društva:</th>
+                                            <td> {{tura.nazivP}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Adresa:</th>
+                                            <td id="adr">{{tura?.adresaP}} {{tura?.drzava}}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Datum polaska:</th>
+                                            <td>{{tura?.datum_OD | date: 'dd. MM. yyyy.'}} godine</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Broj osoba:</th>
+                                            <td>{{tura?.rezervacija?.br_mesta}} osoba/e</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Žiro račun za uplatu:</th>
+                                            <td>835-297834521865-64</td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.dodatni_info==''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>/</td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.dodatni_info!=''">
+                                            <th>Dodatne informacije:</th>
+                                            <td>{{tura?.rezervacija?.dodatni_info}}</td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.status=='nova'">
+                                            <th>Status:</th>
+                                            <td style="color:blue;"><b>{{tura?.rezervacija?.status}}</b></td>
+                                        </tr>
+                                        <tr *ngIf="tura?.rezervacija?.status=='odbijena'">
+                                            <th>Status:</th>
+                                            <td  style="color:red;"><b>{{tura?.rezervacija?.status}}</b></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-5 placanje" *ngIf="tura?.rezervacija?.status=='nova'">
+                                    <h3><b>Ukupno za uplatu: </b> {{tura?.cena * tura?.rezervacija?.br_mesta}} din</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn prihvati" (click)="show_details(tura?.idTure)">DETALJI TURE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div *ngIf="mojeTure.length==0">
+            <h2>TRENUTNO NEMA NOVIH REZERVACIJA PLANINARSKIH TURA</h2>
+        </div> 
+    </div>
+</div>

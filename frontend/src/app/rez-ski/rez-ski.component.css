@@ -1,0 +1,93 @@
+/* .bg{
+    background-color: rgb(241, 246, 246);
+} */
+
+.container{
+    margin-top: 70px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.label_kat{
+    margin-right: 10px;
+    font-weight: 500;
+}
+
+/* change checkbox color */
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: #f74f01!important;
+}
+
+::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: #f74f01;
+}
+/* end of change checkbox color */
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}
+
+.notes_color{
+    color: #78818a;
+}
+
+.margine_checkbox {
+    margin: 0 10px;
+}
+
+.padd{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.times{
+    width: max-content;
+    background-color:#f0ad4e;
+    color: white;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+/* .times:visited{
+    background:#f75301;
+} */
+.times:focus{
+    background:#f75301;
+}
+/* .times:active{
+    background:#f75301;
+} */
+
+/* #f75f01 */
+.star_color{
+    color:orange
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+    filter: invert(100%);
+}
+
+/* .ikonica{
+    background-color: rgb(134, 184, 235);
+} */

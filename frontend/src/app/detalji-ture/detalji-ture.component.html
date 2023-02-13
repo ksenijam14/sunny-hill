@@ -1,0 +1,79 @@
+<app-meni-firme></app-meni-firme>
+
+<div class="bg">
+
+<div class="container">
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6 padd" *ngIf="detaljiTure?.br_dana==1">
+            <h1 class="headline">{{detaljiTure?.naslov}} by {{detaljiTure?.nazivP}}, {{detaljiTure?.datum_OD | date:'dd.MM.yyyy.'}} (jednodnevna)</h1>
+        </div>
+        <div class="offset-sm-3 col-sm-6 padd" *ngIf="detaljiTure?.br_dana>1">
+            <h1 class="headline">{{detaljiTure?.naslov}} by {{detaljiTure?.nazivP}}, {{detaljiTure?.datum_OD | date:'dd.MM.yyyy.'}} ({{detaljiTure?.br_dana}} dana)</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-3 col-sm-6">
+            <table class="tabela">
+                <!-- <tr>
+                    <td style="font-weight:bold">OPIS:</td>
+                </tr> -->
+                <tr>
+                    <td>{{detaljiTure?.opis}}</td>
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">PROGRAM:</td>
+                </tr>
+                <br>
+                <tr>
+                    <td>{{detaljiTure?.program}}</td>  
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">SAVETI:</td>
+                </tr>
+                <br>
+                <tr>
+                    <td>{{detaljiTure?.saveti}}</td>  
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">CENA: {{detaljiTure?.cena}} din</td>
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">U CENU JE UKLJUCENO:</td>
+                </tr>
+                <br>
+                <tr>
+                    <td>{{detaljiTure?.ukljuceno}}</td>  
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">U CENU NIJE UKLJUCENO:</td>
+                </tr>
+                <br>
+                <tr>
+                    <td>{{detaljiTure?.nije_ukljuceno}}</td>  
+                </tr>
+                <br>
+                <br>
+                <tr>
+                    <td style="font-weight:bold">NAPOMENE:</td>
+                </tr>
+                <br>
+                <tr>
+                    <td>{{detaljiTure?.napomene}}</td>  
+                </tr>
+                <br>
+                <br>
+            </table>
+        </div>
+    </div>
+</div>
+</div>

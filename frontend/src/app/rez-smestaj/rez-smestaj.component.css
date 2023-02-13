@@ -1,0 +1,94 @@
+.container{
+    margin-top: 70px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+    /* background-color: rgb(241, 246, 246); */
+}
+
+.alert-heading{
+    text-align: center;
+    padding-left: 15px;
+}
+
+.star_color{
+    color: orange;
+}
+
+.notes_color{
+    color: #78818a;
+}
+
+/* .location_color{
+    color: rgb(132, 132, 211);
+} */
+
+.aligned-with-icon{
+    font-size: 15px;
+    font-weight: 500;
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px; /* optional */
+}
+
+/* .tabela{
+    text-align: justify;
+} */
+
+.karakteristike {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+}
+
+.karakteristike td, th{
+    border: none !important;
+    text-align: left;
+    padding: 8px;
+}
+
+.sobe {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.sobe td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+.sobe tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.padd{
+    padding-top: 10px;
+    padding-bottom: 15px;
+}
+
+.paddH{
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
+.center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 70px;
+}
+
+:host ::ng-deep mat-form-field .mat-form-field-outline-start {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-gap {
+    background-color: rgb(241, 246, 246) !important;
+}
+  
+:host ::ng-deep mat-form-field .mat-form-field-outline-end {
+    background-color: rgb(241, 246, 246) !important;
+}
+

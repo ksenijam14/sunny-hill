@@ -1,0 +1,104 @@
+<div class="bg">
+    <nav class="navbar navbar-expand-lg navbar-light toolbar sticky-top">
+        <div class="container-fluid">
+            <div class="col-sm-1">
+                <div class="padd-logo">
+                    <a class="navbar-brand " href="#">
+                        <br>
+                        <img src="/assets/suncani_breg_logo.png" alt="Ski skole" width="50px" height="50px">
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="col-sm-10">
+                <div *ngIf="ulogovan.tip=='planinari'; else ostali">
+                    <div class="centarPlan text-center">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="home()">| O firmi |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="nova_tura()">| Nova tura |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="pregled_tura()">| Pregled svih tura |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="nove_rez()">| Nove rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="odobrene_rez()">| Odobrene rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="odbijene_rez()">| Odbijene rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="details" mat-icon-button [matMenuTriggerFor]="user_menu">
+                                    <mat-icon>account_box</mat-icon>
+                                </button>
+                                <mat-menu #user_menu="matMenu"  yPosition="above">
+                                    <button mat-menu-item (click)="changePass()">
+                                      <mat-icon>manage_accounts</mat-icon>
+                                      <span>Promena lozinke</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                      <mat-icon>manage_history</mat-icon>
+                                      <span>Promena podataka</span>
+                                    </button>
+                                    <button mat-menu-item (click)="logout()">
+                                      <mat-icon>logout</mat-icon>
+                                      <span>Odjavi se</span>
+                                    </button>
+                                </mat-menu>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ng-template #ostali>
+                    <div class="centar text-center">
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="home()">| O firmi |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="nove_rez()">| Nove rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="odobrene_rez()">| Odobrene rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt" mat-button (click)="odbijene_rez()">| Odbijene rezervacije |</button>
+                              </li>
+                              <li class="nav-item">
+                                <button class="butt_profil" mat-icon-button [matMenuTriggerFor]="user_menu">
+                                    <mat-icon>account_box</mat-icon>
+                                </button>
+                                <mat-menu #user_menu="matMenu"  yPosition="above">
+                                    <button mat-menu-item (click)="changePass()">
+                                      <mat-icon>manage_accounts</mat-icon>
+                                      <span>Promena lozinke</span>
+                                    </button>
+                                    <button mat-menu-item>
+                                        <mat-icon>manage_history</mat-icon>
+                                        <span>Promena podataka</span>
+                                      </button>
+                                    <button mat-menu-item (click)="logout()">
+                                      <mat-icon>logout</mat-icon>
+                                      <span>Odjavi se</span>
+                                    </button>
+                                </mat-menu>
+                              </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-template>    
+            </div>
+        </div>
+    </nav>
+</div>
+

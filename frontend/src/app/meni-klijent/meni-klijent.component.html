@@ -1,0 +1,48 @@
+<div class="bg">
+    <nav class="navbar navbar-expand-lg navbar-light toolbar sticky-top">
+        <div class="container-fluid">
+            <div class="padd-logo">
+                <a class="navbar-brand " href="#">
+                    <br>
+                    <img src="/assets/suncani_breg_logo.png" alt="Ski skole" width="50px" height="50px">
+                </a>
+            </div>
+          <!-- kada se smanji ekran pojavljuju se 3 horizontalne linije -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="right">
+                <div class="collapse navbar-collapse center" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <button class="butt_others" mat-button (click)="poslate()">Poslate rezervacije</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="butt_others" mat-button (click)="potvrdjene()">Potvrđene rezervacije</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="butt" mat-icon-button [matMenuTriggerFor]="user_menu">
+                                <mat-icon>account_box</mat-icon>
+                            </button>
+                            <mat-menu #user_menu="matMenu"  yPosition="above">
+                                <button mat-menu-item (click)="mojProfil()">
+                                  <mat-icon>face</mat-icon>
+                                  <span>Moj profil</span>
+                                </button>
+                                <button mat-menu-item (click)="changePass()">
+                                    <mat-icon>manage_accounts</mat-icon>
+                                    <span>Promeni lozinku</span>
+                                </button>
+                                <button mat-menu-item (click)="logout()">
+                                  <mat-icon>logout</mat-icon>
+                                  <span>Odjavi se</span>
+                                </button>
+                            </mat-menu>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+

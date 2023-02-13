@@ -1,0 +1,144 @@
+<app-meni-classic></app-meni-classic>
+<div class="bg">  
+    <div class="container">
+        <div class="row">
+            <div class="alert alert-success alert-dismissible offset-sm-3 col-sm-6 text-center" role="alert">
+                <h2 class="alert-heading">Ski škola: {{detaljiSk[0]['nazivP']}}</h2>
+                <hr>
+                <div align="left">
+                    <mat-icon class="star_color">star_rate</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiSk[0]?.detalji_skole[0]['ocena']}}/10</span>
+                </div>
+                <div align="left">
+                    <mat-icon color="primary">location_on</mat-icon>
+                    <span class="aligned-with-icon">{{detaljiSk[0]?.adresaP}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <h2>Slajder slika</h2> -->
+            <div *ngIf="imageObject.length>0">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img [src]="imageObject[0]['image']" width="700px" height="500px">
+                    </div>
+                    <div class="carousel-item" *ngFor="let img of imageObject let i = index">
+                        <img  [src]="img['image']" width="700px"  height="500px">
+                    </div>
+                    </div>
+                    <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon ikonica" aria-hidden="true"></span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                    <span class="carousel-control-next-icon ikonica" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="headline offset-sm-3 col-sm-6">
+                <h1>Rezervišite svoj termin</h1>
+                <hr>
+            </div>
+            <div class="col-sm-12 padd">
+                <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                    <table class="center">
+                        <!-- <tr>
+                            <td colspan="2">
+                                <h3 class="table_heading">RERVISITE SVOJ TERMIN</h3>
+                            </td>
+                        </tr>
+                        <hr> -->
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Izaberite instruktora:</mat-label>
+                                    <mat-select formControlName="instruktor">
+                                    <mat-option *ngFor='let d of instruktori' value='{{d["_id"]}}'>{{d["ime_prezime"]}}, časovi za: {{d["drzi_za"]}}</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="myError('instruktor', 'required')">Instrutor je obavezno polje!</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Izaberite datum:</mat-label>
+                                    <input matInput formControlName="datum" [matDatepicker]="picker" (dateChange)="addEvent($event)">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="myError('datum', 'required')">Datum je obavezno polje!</mat-error>
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr *ngIf="forma.value.datum!=''">
+                            <td>
+                                <div class="row">
+                                    <div class="offset-sm-3 col-sm-6 padd">
+                                        <button *ngFor="let i of slobVremena" type="button" class="btn times" (click)="vreme(i)">{{i}} h</button>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <label class="label_kat">Iznajmljivanje ski opreme:</label>
+                                <mat-checkbox class="margine_checkbox" formControlName="renta_opreme">Da</mat-checkbox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="padd">
+                                    <button type="submit" mat-raised-button color="primary" [disabled]="!valid" (click)="rezervisi()">REZERVIŠI</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div *ngIf='showAlertOK==true' class="padd">
+                                    <div class="alert alert-info" role="alert">
+                                        {{message}}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div *ngIf='showAlertErr==true' class="padd">
+                                    <div class="alert alert-danger" role="alert">
+                                        {{message}} 
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-sm-3 col-sm-6 padd">
+                <h3><b>KOMENTARI:</b></h3>
+                <hr>
+                <div class="col-sm-12" *ngFor="let kom of detaljiSk[0]?.detalji_skole[0]?.komentari"> 
+                    <div align="left">
+                        <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                            <!-- <h4 class="alert-heading">{{kom?.klijent}}</h4> -->
+                            <div align="left">
+                                <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                <span class="aligned-with-icon">{{kom?.text}} by {{kom?.klijent}}</span>
+                            </div>
+                            <div align="left">
+                                <mat-icon class="star_color">star_rate</mat-icon>
+                                <span class="aligned-with-icon">{{kom?.ocena}}/10</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

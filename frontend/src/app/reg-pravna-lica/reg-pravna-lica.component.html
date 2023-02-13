@@ -1,0 +1,215 @@
+<app-meni-firma-reg></app-meni-firma-reg>
+<div class="container">
+    <div class="row text-center">
+        <div class='col-sm-12'>
+            <hr>
+            <h1>Zbog čega Sunčani breg?</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="offset-sm-2 col-sm-4 info">
+            <h2><mat-icon>check_circle</mat-icon>POVEĆAJTE BAZU SVOJIH KORISNIKA</h2>
+            <p class="info">
+                Registracijom na našem sajtu bićete u vrhu top-pretraga i doći ćete do mnogo novih klijenata.
+            </p>
+        </div>
+        <div class="col-sm-4 info">
+            <h2><mat-icon>check_circle</mat-icon>IZGRADITE SVOJU REPUTACIJU</h2>
+            <p>
+                Pridružute nam se i krenute da radite sa većim brojem klijenata.
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-sm-2 col-sm-4 info">
+            <h2><mat-icon>check_circle</mat-icon>USTEDITE VREME</h2>
+            <p>
+                Preko aplikacije će pristupati korisnici koji žele
+                 da rezervišu Vaše usluge, Vi samo treba da ih odobrite.
+            </p>
+        </div>
+        <div class="col-sm-4 info">
+            <h2><mat-icon>check_circle</mat-icon>KONTROLA JE U VAŠIM RUKAMA</h2>
+            <p>
+                Sami možete da odredite koji su slobodni, a koji termini zauzeti, 
+                da menjate ponude i dajete popuste.
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row text-center">
+        <div class='col-sm-12'>
+            <h1>Kako Sunčani breg funkcioniše?</h1>
+            <hr>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-sm-4 info">
+            <h2>1. REGISTRACIJA</h2>
+            <p class="info">
+                Popunite osvnovne podatke o Vašoj firmi i pošaljite zahtev za registraciju.
+            </p>
+        </div>
+        <div class="col-sm-4 info">
+            <h2>2. VERIFIKACIJA I DODATNI PODACI</h2>
+            <p>
+                Posle inicijalne provere i unosa dodatnih podataka bićete u potpunosti verifikovani.
+            </p>
+        </div>
+        <div class="col-sm-4 info">
+            <h2>3. DOČEKAJTE NOVE KORISNIKE</h2>
+            <p>
+                Nakon što se klijenti odluče za Vas dobićete rezervacije da ih odobrite.
+            </p>
+        </div>
+    </div>
+    <hr>
+    <div class="row text-center">
+        <div class="col-sm-12">
+            <form [formGroup]="forma" fxLayout="column wrap" fxLayoutAlign="center center" fxLayoutGap="10px">
+                <table class="center reg_table">
+                    <tr>
+                        <td colspan="2">
+                            <h3 class="table_heading">OGLASITE VAŠ BIZNIS VEĆ SADA!</h3> 
+                            <hr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ime i prezime</mat-label>
+                                <input matInput formControlName="ime_prezime">
+                                <mat-error *ngIf="myError('ime_prezime', 'required')">Ime i prezime je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Korisničko ime</mat-label>
+                                <input matInput formControlName="kor_ime">
+                                <mat-error *ngIf="myError('kor_ime', 'required')">Korisničko ime je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Lozinka</mat-label>
+                                <input type='password' matInput formControlName="lozinka">
+                                <mat-error *ngIf="myError('lozinka', 'required')">Lozinka je obavezno polje!</mat-error>
+                                <mat-error *ngIf="myError('lozinka', 'pattern')">Lozinka nije u dobrom formatu!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ponovljena lozinku</mat-label>
+                                <input type='password' matInput formControlName="re_lozinka">
+                                <mat-error *ngIf="myError('re_lozinka', 'required')">Morate uneti ponovo lozinku!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Telefon</mat-label>
+                                <input matInput formControlName="telefon">
+                                <mat-error *ngIf="myError('telefon', 'required')">Broj telefona je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>E-mail</mat-label>
+                                <input matInput formControlName="email" placeholder="ex. name@gmail.com">
+                                <mat-error *ngIf="myError('email', 'required')">E-mail je obavezno polje!</mat-error>
+                                <mat-error *ngIf="myError('email', 'email')">E-mail nije u dobrom formatu!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Naziv firme</mat-label>
+                                <input matInput formControlName="nazivP">
+                                <mat-error *ngIf="myError('nazivP', 'required')">Naziv preduzeća je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Država</mat-label>
+                                <mat-select formControlName="drzava">
+                                    <mat-option value="srbija">Srbija</mat-option>
+                                    <mat-option value="bosna i hercegovina">Bosna i Hercegovina</mat-option>
+                                    <mat-option value="slovenija">Slovenija</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="myError('drzava', 'required')">Država je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Planina</mat-label>
+                                <input matInput formControlName="planina">
+                                <mat-error *ngIf="myError('planina', 'required')">Planina je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Adresa</mat-label>
+                                <input matInput formControlName="adresaP">
+                                <mat-error *ngIf="myError('adresaP', 'required')">Adresa preduzeća je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>PIB</mat-label>
+                                <input matInput type="number"  formControlName="PIB">
+                                <mat-error *ngIf="myError('PIB', 'required')">PIB je obavezno polje!</mat-error>
+                                <mat-error *ngIf="myError('PIB', 'pattern')">PIB nije u dobrom formatu!</mat-error>
+                            </mat-form-field>
+                        </td>
+                        <td>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Matični broj preduzeća</mat-label>
+                                <input matInput type="number" formControlName="maticni">
+                                <mat-error *ngIf="myError('maticni', 'required')">Matični broj preduzeća je obavezno polje!</mat-error>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="file" (change)="onFileChange($event)" class="form-control" id="exampleInputImage" accept="image/png, image/jpeg" formControlName="slika" name="slika">    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div class="padd">
+                                <button type="submit" mat-raised-button color="primary" [disabled]="!forma.valid" (click)="registerPravnoLice()">REGISTRUJ BIZNIS</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertOK==true' class="padd">
+                                <div class="alert alert-info" role="alert">
+                                    {{message}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div *ngIf='showAlertErr==true'>
+                                <div class="alert alert-danger" role="alert">
+                                    {{message}} 
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

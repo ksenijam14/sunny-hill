@@ -1,0 +1,41 @@
+<app-meni-classic></app-meni-classic>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>KOMENTARI</h2>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="offset-3 col-sm-6 text-center ">
+            <div *ngFor="let det of sviDetalji let i=index">
+                <div *ngIf="det?.ocena>0">
+                    <button type="button" mat-raised-button class="butt_firma" (click)="see_comm(i)">
+                        <span> {{det?.nazivP}} </span><mat-icon class="star_color">star_rate</mat-icon> <span class="aligned-with-icon">{{det?.ocena}}/10 </span>
+                    </button>
+                </div>
+                <div *ngIf="det?.ocena==0">
+                    <button type="button" mat-raised-button class="butt_firma" (click)="see_comm(i)">
+                        <span> {{det?.nazivP}} </span>
+                    </button>
+                </div>
+                <div *ngIf="det?.komentari.length>0 && this.showKomentar[i]==true">
+                    <div *ngFor="let kom of det?.komentari">
+                        <div align="left">
+                            <div class="alert alert-warning alert-dismissible text-center" role="alert">
+                                <div align="left">
+                                    <mat-icon class="notes_color">speaker_notes</mat-icon>
+                                    <span class="aligned-with-icon">{{kom['text']}} by {{kom['klijent']}}</span>
+                                </div>
+                                <div align="left">
+                                    <mat-icon class="star_color">star_rate</mat-icon>
+                                    <span class="aligned-with-icon">{{kom['ocena']}}/10</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
